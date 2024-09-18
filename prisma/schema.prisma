@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "mysql"
+  url       = env("DATABASE_URL")
+}
+
+model country {
+  id                 Int             @id @default(autoincrement())
+  countryName        String
+  CountryAttach      String
+  CountryDescription String          @db.Text
+  hotel              hotel[]
+  aboutCountry       aboutCountry[]
+  popularPlaces      popularPlaces[]
+  ImageContent       ImageContent[]
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+}
+
+model hotel {
+  id           String   @id @default(uuid())
+  Country      String
+  Hname        String
+  Haddress     String
+  Hdescription String   @db.LongText
+  image        String
+  rating       Int
+  hotelPrice   Int
+  oceanView    Boolean  @default(false)
+  forestView   Boolean  @default(false)
+  mountainView Boolean  @default(false)
+  country      country? @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  countryId    Int?
+
+  @@index([countryId])
+}
+
+model aboutCountry {
+  id             Int      @id @default(autoincrement())
+  description    String   @db.LongText
+  country        country? @relation(fields: [aboutCountryId], references: [id])
+  aboutCountryId Int?
+
+  @@index([aboutCountryId])
+}
+
+model popularPlaces {
+  id              String   @id @default(uuid())
+  name            String
+  image           String
+  address         String
+  about           String   @db.LongText
+  country         country? @relation(fields: [popularPlacesId], references: [id])
+  popularPlacesId Int?
+
+  @@index([popularPlacesId])
+}
+
+model ImageContent {
+  id       String   @id @default(uuid())
+  content  String   @db.LongText
+  country  country? @relation(fields: [imagesId], references: [id], onDelete: Cascade)
+  imagesId Int?
+
+  @@index([imagesId])
+}
+
+enum UserRole{
+  ADMIN
+  USER
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime? 
+  image         String?
+  password      String?
+  role          UserRole @default(USER)
+  accounts      Account[]
+
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+
+}
