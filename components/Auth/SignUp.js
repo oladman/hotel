@@ -4,31 +4,34 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPlus, faTriangleExclamation, faCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserPlus,
+  faTriangleExclamation,
+  faCheck,
+} from "@fortawesome/free-solid-svg-icons";
 import LoginWrapper from "../../components/Login/LoginWrapper";
 import Button from "../../components/Button";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterSchema } from "../../Schemas";
-import { startTransition, useState, useTransition } from "react";
+import { startTransition, useState } from "react";
 import { registerAction } from "../../actions/registerAction";
 import { DEFAULT_LOGIN_REDIRECT } from "../../routes";
 import { signIn } from "next-auth/react";
 
 export default function SignUp() {
-  const [error, setError] = useState();
-  const [success, setSuccess] = useState();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const router = useRouter();
 
-  // ✅ Correct useForm with ZOD
+  // 🚀 No TypeScript generics — pure JS
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<z.infer<typeof RegisterSchema>>({
+  } = useForm({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
       name: "",
@@ -37,7 +40,7 @@ export default function SignUp() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
+  const onSubmit = (values) => {
     setError("");
     setSuccess("");
 
@@ -95,14 +98,20 @@ export default function SignUp() {
 
           {error && (
             <p className="error-style">
-              <FontAwesomeIcon icon={faTriangleExclamation} className="error-icon-style" />{" "}
+              <FontAwesomeIcon
+                icon={faTriangleExclamation}
+                className="error-icon-style"
+              />{" "}
               {error}
             </p>
           )}
 
           {success && (
             <p className="success-style">
-              <FontAwesomeIcon icon={faCheck} className="success-icon-style" />{" "}
+              <FontAwesomeIcon
+                icon={faCheck}
+                className="success-icon-style"
+              />{" "}
               {success}
             </p>
           )}
