@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import Styles from "./page.module.css";
 import { FaStar, FaSearch } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa6";
@@ -10,7 +10,7 @@ import { LuMinus, LuPlus, LuX } from "react-icons/lu";
 import DatePickerModal from "../../components/DatePickerModal/DatePickerModal";
 import Link from "next/link";
 
-export default function SearchPage() {
+function SearchPageContent() {
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(true);
   const [destination, setDestination] = useState("");
@@ -295,5 +295,13 @@ export default function SearchPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading search...</div>}>
+      <SearchPageContent />
+    </Suspense>
   );
 }

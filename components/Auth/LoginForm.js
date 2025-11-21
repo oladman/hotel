@@ -11,13 +11,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "../../Schemas";
 import { useRouter, useSearchParams } from "next/navigation";
-import { startTransition, useState, useTransition } from "react";
+import { startTransition, useState, useTransition, Suspense } from "react";
 import { login } from "../../actions/login";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { DEFAULT_LOGIN_REDIRECT } from "../../routes";
 
-const LoginForm = () => {
+const LoginFormContent = () => {
   const searchParams = useSearchParams();
   const urlError =
     searchParams.get("error") === "OAuthAccountNotLinked"
@@ -131,6 +131,14 @@ const LoginForm = () => {
         </div>
       </LoginWrapper>
     </div>
+  );
+};
+
+const LoginForm = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginFormContent />
+    </Suspense>
   );
 };
 

@@ -1,5 +1,9 @@
 import { PrismaClient } from "@prisma/client";
+import { NextRequest, NextResponse } from "next/server";
+
 const prisma = new PrismaClient();
+
+export const dynamic = 'force-dynamic';
 
 export async function GET(req) {
   try {
@@ -7,7 +11,7 @@ export async function GET(req) {
     const destination = searchParams.get("name");
 
     if (!destination) {
-      return new Response(JSON.stringify({ message: "Missing destination" }), { status: 400 });
+      return NextResponse.json({ message: "Missing destination" }, { status: 400 });
     }
 
     const hotels = await prisma.hotel.findMany({
@@ -32,14 +36,14 @@ export async function GET(req) {
     });
 
     if (!hotels.length) {
-      return new Response(JSON.stringify({ message: "No hotels found" }), { status: 404 });
+      return NextResponse.json({ message: "No hotels found" }, { status: 404 });
     }
 
-    return new Response(JSON.stringify(hotels), { status: 200 });
+    return NextResponse.json(hotels, { status: 200 });
   } catch (error) {
     console.error("Error fetching hotels:", error);
-    return new Response(
-      JSON.stringify({ message: "Server error", error: error.message }),
+    return NextResponse.json(
+      { message: "Server error", error: error.message },
       { status: 500 }
     );
   }
