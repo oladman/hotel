@@ -98,7 +98,7 @@ export default function HotelData({ hotel, initialRooms = [], hotelName }) {
                 <i><LuBuilding2 /></i>
                 <div>
                   <p>Dedicated Workspace</p>
-                  <p>A common area with wifi that's well-suited for working</p>
+                  <p>A common area with wifi that&apos;s well-suited for working</p>
                 </div>
               </div>
 

@@ -126,16 +126,17 @@ const HotelDataSideBar = ({ hotel, roomTypes = [], onResults }) => {
         </div>
 
    
-        <GuestSelector
-          adults={adults}
-          children={children}
-          rooms={rooms}
-          petFriendly={petFriendly}
-          setAdults={setAdults}
-          setChildren={setChildren}
-          setRooms={setRooms}
-          setPetFriendly={setPetFriendly}
-        />
+     <GuestSelector
+  adults={adults}
+  numChildren={children}  // renamed prop
+  rooms={rooms}
+  petFriendly={petFriendly}
+  setAdults={setAdults}
+  setChildren={setChildren}
+  setRooms={setRooms}
+  setPetFriendly={setPetFriendly}
+/>
+
 
         
         <DateSelector dates={dates} setDates={setDates} />

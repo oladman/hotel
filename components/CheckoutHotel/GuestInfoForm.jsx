@@ -3,7 +3,7 @@ import Styles from "./Checkout.module.css";
 export default function GuestInfoForm() {
   return (
     <div className={Styles["section"]}>
-      <h3 className={Styles["section-title"]}>Who's checking in?</h3>
+      <h3 className={Styles["section-title"]}>Who&apos;s checking in?</h3>
 
       <div className={Styles["form-group"]}>
         <label>First Name*</label>

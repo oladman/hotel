@@ -1,13 +1,12 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { LuUsers, LuMinus, LuPlus } from "react-icons/lu";
-import Button from "../Button";
+import { LuUsers } from "react-icons/lu";
 import Styles from "./HotelDataSideBar.module.css";
 import GuestModal from "./GuestModal";
 
 export default function GuestSelector({
   adults,
-  children,
+  numChildren,   // renamed from children
   rooms,
   petFriendly,
   setAdults,
@@ -18,14 +17,13 @@ export default function GuestSelector({
   const [showGuestModal, setShowGuestModal] = useState(false);
   const [tempGuests, setTempGuests] = useState({
     adults,
-    children,
+    numChildren,  // renamed here
     rooms,
     petFriendly,
   });
 
   const guestModalRef = useRef(null);
-  const totalGuests = adults + children;
-
+  const totalGuests = adults + numChildren;  // updated
 
   useEffect(() => {
     const handler = (e) => {
@@ -42,7 +40,7 @@ export default function GuestSelector({
       <p className={Styles["label-name"]}>Guests and Rooms</p>
       <div
         onClick={() => {
-          setTempGuests({ adults, children, rooms, petFriendly });
+          setTempGuests({ adults, numChildren, rooms, petFriendly }); // updated
           setShowGuestModal(true);
         }}
       >

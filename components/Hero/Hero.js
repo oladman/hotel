@@ -15,7 +15,7 @@ export default function Hero() {
           </h1>
           <h2>Discover comfort, book smart, and travel better every time.</h2>
          <p>
-  We've got you covered with amazing deals at thousands upon
+  We&apos;ve got you covered with amazing deals at thousands upon
   thousands of top hotels in cities &amp; countries worldwide.
 </p>
 
