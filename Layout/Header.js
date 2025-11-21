@@ -1,96 +1,141 @@
-import Image from "next/image";
-import logo from "../public/images/logo.png";
+'use client';
+import { useState } from "react";
 import Link from "next/link";
+import Styles from "./Header.module.css";
+import {
+  CgMenuGridO
+} from "react-icons/cg";
+import {
+  LuSearch,
+  LuArrowUpRight,
+  LuHome,
+  LuBed,
+  LuInfo,
+  LuPhone,
+  LuBriefcase,
+  LuUser,
+  LuSettings,
+  LuGlobe2,
+  LuDollarSign,
+  LuLanguages
+} from "react-icons/lu";
 
-function page() {
+function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <header className="header">
-      <nav className="nav">
-        <div className="container nav_container">
-          <Link href="/" className="nav_logo">
-            <Image
-              src={logo}
-              alt=""
-              width="150"
-              height="90"
-              className="nav_logo_img"
-            />
-          </Link>
-          <ul className="nav_list">
-            <li className="nav_item">
-              <a href="#" className="nav_link">
+    <div className={Styles["header-cover"]}>
+      <div className={Styles["container"]}>
+        <header className={Styles["header"]}>
+          
+          <div className={Styles["nav-cover"]}>
+            <Link href="/" className={Styles["logonew"]}>
+              Vac<span className={Styles["dot"]}></span>Easy
+            </Link>
+
+           
+            <nav className={Styles["nav-desktop"]}>
+              <a href="#" className={`${Styles["nav-link"]} ${Styles["active"]}`}>
                 Home
               </a>
-            </li>
-            <li className="nav_item">
-              {" "}
-              <Link className="nav_link" href="/login">
-                Sign In
-              </Link>
-            </li>
-            <li className="nav_item">
-              <Link className="nav_link" href="/register">
-                Sign Up
-              </Link>
-            </li>
-            <li className="nav_item">
-              <a href="#" className="nav_link">
-                Contact
+              <a href="#" className={Styles["nav-link"]}>
+                Rooms
               </a>
-            </li>
-            <li className="nav_item">
-              <a href="" className="nav_btn">
-                Book Now
+              <a href="#" className={Styles["nav-link"]}>
+                Services
               </a>
-            </li>
-          </ul>
-          <span className="menu_icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="white"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-6 h-6"
+              <a href="#" className={Styles["nav-link"]}>
+                About Us
+              </a>
+              <a href="#" className={Styles["nav-link"]}>
+                Contact Us
+              </a>
+            </nav>
+
+           
+            <button
+              className={Styles["menu-btn"]}
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle menu"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              />
-            </svg>
-          </span>
-        </div>
-        <ul className="mobile_nav_list mobile_nav_toggle">
-          <li className="mobile_nav_item">
-            <a href="#" className="mobile_nav_link">
-              Home
+              <CgMenuGridO />
+            </button>
+          </div>
+
+    
+          <div className={Styles["search-desktop"]}>
+            <div className={Styles["search-input"]}>
+              <input placeholder="Search Hotel..." />
+              <LuSearch className={Styles["Search-icon"]} />
+            </div>
+            <Link href="#" className={Styles["Book-now"]}>
+              Book Now <LuArrowUpRight className={Styles["link-icon"]} />
+            </Link>
+          </div>
+        </header>
+
+        
+        <aside
+          className={`${Styles["mobile-nav"]} ${
+            menuOpen ? Styles["show"] : ""
+          }`}
+        >
+       
+          <div className={Styles["mobile-section"]}>
+            <h4 className={Styles["mobile-section-title"]}>Account</h4>
+            <a href="#" className={Styles["mobile-link"]}>
+              <LuUser /> Sign In
             </a>
-          </li>
-          <li className="mobile_nav_item">
-            <a href="#" className="mobile_nav_link">
-              About
+          </div>
+
+         
+          <div className={Styles["mobile-section"]}>
+            <h4 className={Styles["mobile-section-title"]}>Services</h4>
+            <a href="#" className={Styles["mobile-link"]}>
+              <LuHome /> Home
             </a>
-          </li>
-          <li className="mobile_nav_item">
-            <a href="#" className="mobile_nav_link">
-              Campground
+            <a href="#" className={Styles["mobile-link"]}>
+              <LuBed /> Rooms
             </a>
-          </li>
-          <li className="mobile_nav_item mobile_nav_link_last">
-            <a href="#" className="mobile_nav_link">
-              Contact
+            <a href="#" className={Styles["mobile-link"]}>
+              <LuBriefcase /> Services
             </a>
-          </li>
-          <li className="mobile_nav_item">
-            <a href="" className="mobile_nav_btn">
-              Book Now
+            <a href="#" className={Styles["mobile-link"]}>
+              <LuInfo /> About Us
             </a>
-          </li>
-        </ul>
-      </nav>
-    </header>
+            <a href="#" className={Styles["mobile-link"]}>
+              <LuPhone /> Contact Us
+            </a>
+          </div>
+
+        
+          <div className={Styles["mobile-section"]}>
+            <h4 className={Styles["mobile-section-title"]}>Support</h4>
+            <a href="#" className={Styles["mobile-link"]}>
+              <LuLanguages /> Language
+            </a>
+            <a href="#" className={Styles["mobile-link"]}>
+              <LuGlobe2 /> Country
+            </a>
+            <a href="#" className={Styles["mobile-link"]}>
+              <LuDollarSign /> Currency
+            </a>
+            <a href="#" className={Styles["mobile-link"]}>
+              <LuSettings /> Settings
+            </a>
+          </div>
+        </aside>
+
+       
+        {menuOpen && (
+          <div
+            className={Styles["overlay"]}
+            onClick={() => setMenuOpen(false)}
+          ></div>
+        )}
+      </div>
+    </div>
   );
 }
 
-export default page;
+export default Header;

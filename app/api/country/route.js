@@ -1,43 +1,49 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
-
 const prisma = new PrismaClient();
 
-
+// Create a country
 export async function POST(request) {
- try{
+  try {
     const data = await request.json();
-    const {countryName, CountryAttach, CountryDescription} = data;
+    const { countryName, countryAttach, countryDescription, code } = data;
+
+    // Create new country
     const newCountry = await prisma.country.create({
-        data: {
-           countryName,
-           CountryAttach,
-           CountryDescription
-        }
-
-
+      data: {
+        countryName,
+        countryAttach,
+        countryDescription,
+        code, // remember: code is required & unique in your model
+      },
     });
 
-    return NextResponse.json(newCountry);
- } catch (error) {
+    return NextResponse.json(newCountry, { status: 201 });
+  } catch (error) {
     console.error("Error Adding Country:", error);
-    return NextResponse.error("Internal Server Error", 500);
- }
+    return NextResponse.json(
+      { message: "Internal Server Error", error: error.message },
+      { status: 500 }
+    );
+  }
 }
 
+// Get all countries with their hotels
+export async function GET() {
+  try {
+    const countries = await prisma.country.findMany({
+      include: {
+        hotels: true, // ✅ Correct relation name
+      },
+    });
 
-   export async function GET() {
-      try {
-        const country = await prisma.country.findMany({
-          include: {
-            hotel: true,
-          },
-        });
-    
-        return NextResponse.json(country);
-      } catch (error) {
-        console.error("Error Fetching Country:", error);
-        return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
-      }
-    }
+    return NextResponse.json(countries, { status: 200 });
+  } catch (error) {
+    console.error("Error Fetching Countries:", error);
+    return NextResponse.json(
+      { message: "Internal Server Error", error: error.message },
+      { status: 500 }
+    );
+  }
+}

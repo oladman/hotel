@@ -1,0 +1,68 @@
+.cover-HomeCard{
+    display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.4rem, 1fr));
+  grid-gap: 0.6rem;
+  margin-top: 2rem;
+}
+.about_cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.4rem, 1fr));
+ grid-gap: 0.6rem;
+margin-top: 2rem;
+}
+.card_cover {
+  max-width: 180px;
+  width: 100%;
+  height: 210px;
+  position: relative;
+}
+
+.card_img {
+  width: 100%;
+  height: 210px;
+  border-radius: 0px;
+  object-position: center;
+  object-fit: cover;
+}
+.card_title {
+  margin: 1.2rem 1rem;
+  position: absolute;
+
+  bottom: 0;
+  color: white;
+}
+
+.card_p {
+  background-color: white;
+  opacity: 0.9;
+  color: #007cc2;
+  position: absolute;
+  bottom: 0;
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  padding: 5px;
+}
+.errorMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  margin-top: 2rem;
+    color: #1e90ff;
+  font-weight: 500;
+  font-size: 14px;
+
+}
+
+@media only screen and (max-width: 1024px) {
+.cover-HomeCard{
+  margin-top: 1rem;
+}
+
+}

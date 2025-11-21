@@ -1,18 +1,25 @@
+import HomeCard from "../components/HomeCard/HomeCard";
+import Hero from "../components/Hero/Hero";
+import Button from "../components/Button";
 
-
-import HeroSection from "../components/HeroSection"
-import SectionCard from "../components/SectionCard";
 
 function page() {
   
 
   return (
     <>
-      <HeroSection />
-      <div className="section-card-cover"> 
-        <h1 className="about_header_topDestination">Trending Destinations</h1>
+      
+      <Hero />
+      <div className="container section-card-cover"> 
+        <div className="explore-city">
+      <h1 className="about_header_topDestination">Explore Nearby</h1>
+      <div>
+        <p>Recomendation place for you</p>
+        <Button className="all-destination-btn" >Explore More</Button>
+      </div>
+      </div> 
         <div className="sectionCard-style">
-          <SectionCard />
+          <HomeCard />
         </div>
       </div>
     </>

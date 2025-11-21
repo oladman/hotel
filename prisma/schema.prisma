@@ -3,104 +3,311 @@ generator client {
 }
 
 datasource db {
-  provider  = "mysql"
-  url       = env("DATABASE_URL")
+  provider = "postgresql" 
+  url      = env("DATABASE_URL")
 }
 
-model country {
-  id                 Int             @id @default(autoincrement())
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  CHECKED_IN
+  CHECKED_OUT
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  CARD
+  CASH
+  TRANSFER
+}
+
+enum PromoType {
+  PERCENTAGE
+  FIXED
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  HOTEL_OWNER
+}
+
+
+model Country {
+  id              String        @id @default(uuid())
   countryName        String
-  CountryAttach      String
-  CountryDescription String          @db.Text
-  hotel              hotel[]
-  aboutCountry       aboutCountry[]
-  popularPlaces      popularPlaces[]
-  ImageContent       ImageContent[]
-  createdAt          DateTime        @default(now())
-  updatedAt          DateTime        @updatedAt
+  countryAttach      String
+  countryDescription String           @db.Text
+  hotels             Hotel[]
+  code               String           
+  aboutCountries     AboutCountry[]
+  popularPlaces      PopularPlace[]
+  imageContents      ImageContent[]
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
 }
 
-model hotel {
-  id           String   @id @default(uuid())
-  Country      String
-  Hname        String
-  Haddress     String
-  Hdescription String   @db.LongText
-  image        String
-  rating       Int
-  hotelPrice   Int
-  oceanView    Boolean  @default(false)
-  forestView   Boolean  @default(false)
-  mountainView Boolean  @default(false)
-  country      country? @relation(fields: [countryId], references: [id], onDelete: Cascade)
-  countryId    Int?
+model AboutCountry {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String   @db.Text
+  country     Country? @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  
+  countryId   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PopularPlace {
+  id          Int                 @id @default(autoincrement())
+  placeName   String
+  description String              @db.Text
+  images      PopularPlaceImage[]
+  country     Country?            @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  countryId   String?
+  hotels      Hotel[]             // Many-to-many
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+}
+
+model PopularPlaceImage {
+  id              String        @id @default(uuid())
+  url             String
+  caption         String?
+  popularPlace    PopularPlace  @relation(fields: [popularPlaceId], references: [id], onDelete: Cascade)
+  popularPlaceId  Int
+}
+
+model ImageContent {
+  id        Int      @id @default(autoincrement())
+  imageUrl  String
+  caption   String?
+  country   Country? @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  countryId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model Hotel {
+  id             String          @id @default(uuid())
+  Hname          String
+  Haddress       String
+  Hdescription   String
+  image          String?
+  rating         Float?          @default(0)
+  startingPrice  Decimal?        @db.Decimal(10, 2)
+  country        Country?        @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  countryId      String?
+
+  roomTypes          RoomType[]
+  images         Image[]
+  reviews        Review[]
+  bookings       Booking[]
+  promotions     Promotion[]
+  popularPlaces  PopularPlace[]
+  amenities      Amenity[]       @relation("HotelAmenities")
+
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
 
   @@index([countryId])
 }
 
-model aboutCountry {
-  id             Int      @id @default(autoincrement())
-  description    String   @db.LongText
-  country        country? @relation(fields: [aboutCountryId], references: [id])
-  aboutCountryId Int?
-
-  @@index([aboutCountryId])
+model Amenity {
+  id       Int      @id @default(autoincrement())
+  name     String
+  slug     String
+  hotels   Hotel[]  @relation("HotelAmenities")
 }
 
-model popularPlaces {
-  id              String   @id @default(uuid())
-  name            String
-  image           String
-  address         String
-  about           String   @db.LongText
-  country         country? @relation(fields: [popularPlacesId], references: [id])
-  popularPlacesId Int?
-
-  @@index([popularPlacesId])
+model Image {
+  id        Int      @id @default(autoincrement())
+  url       String
+  caption   String?
+  hotel     Hotel?   @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+  hotelId   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model ImageContent {
-  id       String   @id @default(uuid())
-  content  String   @db.LongText
-  country  country? @relation(fields: [imagesId], references: [id], onDelete: Cascade)
-  imagesId Int?
+model RoomType {
+  id             String         @id @default(uuid())
+  name           String  
+  description    String? 
+  sizeSqFt       Int?
+  maxOccupancy   Int?
+  basePrice      Decimal        @db.Decimal(10, 2)
+  totalCount     Int
+  availableCount Int
 
-  @@index([imagesId])
+  hotel          Hotel          @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+  hotelId        String
+
+  roomTypeImages RoomTypeImage[]
+  rooms          Room[]
+  extras         Extra[]
+  taxes          Tax[]
+
+
+  bookings       Booking[]     
+
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
 }
 
-enum UserRole{
-  ADMIN
-  USER
+model RoomTypeImage {
+  id        String   @id @default(uuid())
+  imageUrl  String
+  caption   String?
+  roomType      RoomType     @relation(fields: [roomTypeId], references: [id], onDelete: Cascade)
+  roomTypeId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
+model Room {
+  id            String       @id @default(uuid())
+  roomNumber    String 
+  roomType      RoomType     @relation(fields: [roomTypeId], references: [id], onDelete: Cascade)
+  roomTypeId    String
+  reviews       Review[]
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+
+
+
+model Extra {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  price       Decimal    @db.Decimal(10, 2)
+  roomType    RoomType?  @relation(fields: [roomTypeId], references: [id], onDelete: Cascade)
+  roomTypeId  String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Tax {
+  id          Int       @id @default(autoincrement())
+  name        String
+  rate        Float
+  roomType    RoomType? @relation(fields: [roomTypeId], references: [id], onDelete: Cascade)
+  roomTypeId  String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  comment   String
+  rating    Float
+  room      Room?    @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  roomId    String?
+  hotel     Hotel?   @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+  hotelId   String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model Booking {
+  id           String         @id @default(uuid())
+  checkInDate  DateTime
+  checkOutDate DateTime
+  guests       Int?
+  totalAmount  Decimal         @db.Decimal(10, 2)
+  status       BookingStatus   @default(PENDING)
+  user         User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
+  hotel        Hotel           @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+  hotelId      String
+  roomType     RoomType        @relation(fields: [roomTypeId], references: [id], onDelete: Cascade)
+  roomTypeId   String
+  payment      Payment?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+}
+
+model Payment {
+  id            String         @id @default(uuid())
+  amount        Decimal         @db.Decimal(10, 2)
+  method        PaymentMethod
+  status        PaymentStatus   @default(PENDING)
+  transactionId String?         @unique
+  booking       Booking         @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  bookingId     String          @unique   
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime? 
-  image         String?
-  password      String?
-  role          UserRole @default(USER)
-  accounts      Account[]
+  id             String      @id @default(cuid())
+  name           String?
+  email          String?     @unique
+  emailVerified  DateTime?
+  image          String?
+  hashedPassword String?
+  role           UserRole    @default(USER)
 
+  reviews        Review[]
+  bookings       Booking[]
+  accounts       Account[]
+  sessions       Session[]
+
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
 }
 
 model Account {
-  id                String  @id @default(cuid())
+  id                String   @id @default(cuid())
   userId            String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?  @db.Text
+  access_token      String?  @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?  @db.Text
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+}
 
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+
+model Promotion {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String?
+  type        PromoType
+  value       Float
+  validFrom   DateTime
+  validTo     DateTime
+  hotels      Hotel[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }

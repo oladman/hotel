@@ -23,7 +23,7 @@ const RegisterForm = () => {
   async function onSubmit(event) {
     event.preventDefault();
     setIsLoading(true);
-    setError(null); // Clear previous errors when a new request starts
+    setError(null); 
     try {
       const formData = new FormData(event.target);
       const response = await fetch("/api/user", {
@@ -36,11 +36,11 @@ const RegisterForm = () => {
       }
     
 
-      // Handle response if necessary
+     
       const data = await response.json();
-      // ...
+
     } catch (error) {
-      // Capture the error message to display to the user
+
       setError(error.message);
       console.error(error);
     } finally {
