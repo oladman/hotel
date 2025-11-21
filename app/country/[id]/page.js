@@ -1,19 +1,37 @@
 import CountryData from "/components/CountryData/CountryData"
+import { PrismaClient } from "@prisma/client";
 
-
+const prisma = new PrismaClient();
 
 async function getCountrybyID(id) {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/country/${id}`, {
-      catch: "no-store",
+    // Use Prisma directly to avoid undefined API URL at build time
+    const country = await prisma.country.findUnique({
+      where: { id },
+      include: {
+        hotels: {
+          include: {
+            amenities: true,
+          },
+        },
+        aboutCountries: true,
+        imageContents: true,
+        popularPlaces: {
+          include: {
+            images: true,
+          },
+        },
+      },
     });
 
-    if (!res.ok) {
-      throw new Error("Failed to fetch Country");
+    if (!country) {
+      throw new Error("Country not found");
     }
-    return await res.json();
+
+    return country;
   } catch (error) {
     console.log("Error fetching country:", error);
+    return null;
   }
 }
 
