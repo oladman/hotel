@@ -8,7 +8,7 @@ export default function PopularPlaces({ getCountryData }) {
 
   return (
     <div className={Styles["popular-places"]}>
-      <h2>{countryName}'s Top Tourist Attractions</h2>
+      <h2>{countryName} Top Tourist Attractions</h2>
 
       <div className={Styles["popular-card"]}>
         {popularPlaces.length > 0 ? (

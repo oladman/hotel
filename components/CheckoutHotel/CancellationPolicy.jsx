@@ -22,7 +22,7 @@ export default function CancellationPolicy() {
             Follow the house rules
 
           </li>
-          <li style={{ fontSize:"13px"}}> Treat your Host's home like your own</li>
+          <li style={{ fontSize:"13px"}}> Treat your Host&apos;s home like your own</li>
         </ul>
       </div>
     </div>

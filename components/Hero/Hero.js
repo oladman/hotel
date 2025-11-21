@@ -14,10 +14,11 @@ export default function Hero() {
             resorts and much more...
           </h1>
           <h2>Discover comfort, book smart, and travel better every time.</h2>
-          <p>
-            We've got you covered with amazing deals at thousands upon
-            thousands of top hotels in cities & countries worldwide.
-          </p>
+         <p>
+  We've got you covered with amazing deals at thousands upon
+  thousands of top hotels in cities &amp; countries worldwide.
+</p>
+
           <div className={Styles['the-search']}>
             <SearchBar />
             </div>

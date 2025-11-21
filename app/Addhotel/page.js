@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
 
-
-function page() {
+function Page() {
   const router = useRouter();
+
   const [Hotel, setHotel] = useState({
     Country: "",
     Hname: "",
@@ -15,23 +14,23 @@ function page() {
     image: "",
   });
 
-  console.log(Hotel)
-
   const handleSubmit = async (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
+
     try {
-      const res = fetch('/api/hotel', {
-        method: 'POST',
+      const res = await fetch("/api/hotel", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(Hotel),
-      })
+      });
 
-    
       if (!res.ok) throw new Error(await res.text());
+
+      // Optional redirect after successful post
+      // router.push("/your-success-page");
     } catch (e) {
-      // Handle errors here
       console.error(e);
     }
   };
@@ -39,66 +38,59 @@ function page() {
   return (
     <div className="overal-loginm">
       <div className="login-coverm">
-
         <h1>Post HOTELS</h1>
         <hr style={{ width: "100%" }} className="sign-line" />
 
         <form className="create-style" onSubmit={handleSubmit}>
           <div className="input-loginm" style={{ marginTop: "10px" }}>
-            <label htmlFor="firstname" id="">
-              Country
-            </label>
+            <label>Country</label>
             <input
               style={{ padding: "10px" }}
               type="text"
               name="Country"
-              placeholder="Enter Product Name"
+              placeholder="Enter Country"
               onChange={(e) => setHotel({ ...Hotel, Country: e.target.value })}
             />
           </div>
+
           <div className="input-loginm" style={{ marginTop: "10px" }}>
-            <label htmlFor="firstname" id="">
-              Hname
-            </label>
+            <label>Hname</label>
             <input
               style={{ padding: "10px" }}
               type="text"
               name="Hname"
+              placeholder="Enter Hotel Name"
               onChange={(e) => setHotel({ ...Hotel, Hname: e.target.value })}
-              placeholder="Enter Selling Amount"
             />
           </div>
+
           <div className="input-loginm" style={{ marginTop: "10px" }}>
-            <label htmlFor="firstname" id="">
-              Haddress
-            </label>
+            <label>Haddress</label>
             <input
               style={{ padding: "10px" }}
               type="text"
               name="Haddress"
-              onChange={(e) => setHotel({ ...Hotel, Haddress: e.target.value })}
-              placeholder="Specify Haddress"
+              placeholder="Specify Hotel Address"
+              onChange={(e) =>
+                setHotel({ ...Hotel, Haddress: e.target.value })
+              }
             />
           </div>
+
           <div className="input-loginm" style={{ marginTop: "10px" }}>
-            <label htmlFor="firstname" id="">
-              Product Details
-            </label>
+            <label>Hotel Details</label>
             <textarea
-              type="text"
               name="Hdescription"
+              placeholder="Enter Hotel Details"
               onChange={(e) =>
                 setHotel({ ...Hotel, Hdescription: e.target.value })
               }
-              placeholder="Enter Product Details"
             />
           </div>
 
           <br />
           <div className="input-loginm" style={{ marginTop: "10px" }}>
-            <label htmlFor="firstname" id="">
-              IMG URL
-            </label>
+            <label>IMG URL</label>
             <input
               type="text"
               name="image"
@@ -107,8 +99,7 @@ function page() {
           </div>
 
           <div className="btn-login-stylem">
-            
-            <button className="login-btnm">POST PRODUCT</button>
+            <button className="login-btnm">POST HOTEL</button>
           </div>
         </form>
       </div>
@@ -116,4 +107,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

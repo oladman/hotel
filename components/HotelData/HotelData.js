@@ -34,6 +34,26 @@ import HotelImageGallery from "./HotelImageGallery";
 import HotelAmenities from "./HotelAmenities";
 
 export default function HotelData({ hotel, initialRooms = [], hotelName }) {
+
+  // ✅ Hooks must always run
+  const [filteredRoomTypes, setFilteredRoomTypes] = useState(
+    initialRooms.length > 0 ? initialRooms : hotel?.roomTypes || []
+  );
+  const [searchMessage, setSearchMessage] = useState("");
+
+  const handleSearchResults = (results) => {
+    if (Array.isArray(results) && results.length > 0) {
+      setFilteredRoomTypes(results);
+      setSearchMessage("");
+    } else {
+      setFilteredRoomTypes([]);
+      setSearchMessage(
+        "The available rooms can’t accommodate your group size. Try booking more rooms for your trip."
+      );
+    }
+  };
+
+  // ❗ Do NOT return before hooks
   if (!hotel) {
     return <p>Loading hotel data...</p>;
   }
@@ -51,24 +71,6 @@ export default function HotelData({ hotel, initialRooms = [], hotelName }) {
     roomTypes = [],
   } = hotel;
 
-  const [filteredRoomTypes, setFilteredRoomTypes] = useState(
-    initialRooms.length > 0 ? initialRooms : roomTypes
-  );
-  const [searchMessage, setSearchMessage] = useState("");
-
-
-  const handleSearchResults = (results) => {
-    if (Array.isArray(results) && results.length > 0) {
-      setFilteredRoomTypes(results);
-      setSearchMessage(""); 
-    } else {
-      setFilteredRoomTypes([]);
-      setSearchMessage(
-        "The available rooms can’t accommodate your group size. Try booking more rooms for your trip."
-      );
-    }
-  };
-
   return (
     <div className={Styles["container"]}>
       <header className={Styles["Country_Data_Header"]}>
@@ -81,9 +83,7 @@ export default function HotelData({ hotel, initialRooms = [], hotelName }) {
 
         <div className={Styles["fullHotelDetails"]}>
           <div className={Styles["hotelDetailsLeft"]}>
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "10px" }}
-            >
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
               <h1 className={Styles["hotelDetailsLeftHeading"]}>About the Hotel</h1>
               <p className={Styles["hotelDescription"]}>{Hdescription}</p>
             </div>
@@ -95,27 +95,23 @@ export default function HotelData({ hotel, initialRooms = [], hotelName }) {
 
             <div className={Styles["coverExtendedAmenities"]}>
               <div className={Styles["extendedAmenities"]}>
-                <i>
-                  <LuBuilding2 />
-                </i>
+                <i><LuBuilding2 /></i>
                 <div>
                   <p>Dedicated Workspace</p>
                   <p>A common area with wifi that's well-suited for working</p>
                 </div>
               </div>
+
               <div className={Styles["extendedAmenities"]}>
-                <i>
-                  <LuUser />
-                </i>
+                <i><LuUser /></i>
                 <div>
                   <p>Self check-in</p>
                   <p>Check yourself in with the lockbox.</p>
                 </div>
               </div>
+
               <div className={Styles["extendedAmenities"]}>
-                <i>
-                  <LuCalendar />
-                </i>
+                <i><LuCalendar /></i>
                 <div>
                   <p>Free Cancellation</p>
                   <p>Places in free cancellation for 48 hours</p>
