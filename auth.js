@@ -5,7 +5,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import { PrismaClient } from "@prisma/client"
 import authConfig from "./auth.config"
 import { getUserById } from "./data/user"
-import { db } from "./lib/db"
+
  
 const prisma = new PrismaClient()
  
