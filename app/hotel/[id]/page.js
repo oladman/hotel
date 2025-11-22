@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import HotelData from "/components/HotelData/HotelData"; // ✅ Capitalized import
 async function getHotelByID(id) {
   try {
