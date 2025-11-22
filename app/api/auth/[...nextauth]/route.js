@@ -1,9 +1,8 @@
-// app/api/auth/[...nextauth]/route.js
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-// Define authOptions here (do NOT export it)
+// Define auth options
 const authOptions = {
   providers: [
     GithubProvider({
@@ -12,24 +11,30 @@ const authOptions = {
     }),
     CredentialsProvider({
       name: "Credentials",
-      credentials: { email: {}, password: {} },
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
       async authorize(credentials) {
-        // Your login logic
-        if (credentials.email === "test@test.com" && credentials.password === "1234") {
+        // Example login logic
+        if (
+          credentials.email === "test@test.com" &&
+          credentials.password === "1234"
+        ) {
           return { id: 1, name: "Test User", email: "test@test.com" };
         }
         return null;
       },
     }),
   ],
-  // Optional: callbacks, session, pages, etc.
+  // Add callbacks, session, pages, etc. here if needed
 };
 
-// Create NextAuth handler
-const handler = NextAuth(authOptions);
+// ✅ Create NextAuth handler
+const handler = (req, res) => NextAuth(req, res, authOptions);
 
-// ✅ Export only valid route handler fields
-export { handler as GET, handler as POST };
+// ✅ Export only a default handler
+export default handler;
 
-// ✅ Force dynamic to prevent build-time pre-render
+// ✅ Mark the route as dynamic so Next.js doesn't pre-render
 export const dynamic = "force-dynamic";
