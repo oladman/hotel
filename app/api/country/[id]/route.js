@@ -1,18 +1,23 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+// Reuse Prisma client globally
+let prisma;
+if (!global.prisma) {
+  global.prisma = new PrismaClient();
+}
+prisma = global.prisma;
 
-export async function GET(request, { params }) {
+export async function GET(req, { params }) {
   try {
-    const id = params.id; // ✅ UUID is a string — no parseInt()
+    const id = params.id;
 
     if (!id || typeof id !== "string") {
       return NextResponse.json({ message: "Invalid country ID" }, { status: 400 });
     }
 
     const country = await prisma.country.findUnique({
-      where: { id }, // ✅ UUID string
+      where: { id },
       include: {
         hotels: {
           include: {
@@ -22,9 +27,7 @@ export async function GET(request, { params }) {
         aboutCountries: true,
         imageContents: true,
         popularPlaces: {
-          include: {
-            images: true,
-          },
+          include: { images: true },
         },
       },
     });
@@ -36,6 +39,9 @@ export async function GET(request, { params }) {
     return NextResponse.json(country);
   } catch (error) {
     console.error("❌ Error Fetching Country:", error);
-    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { message: "Internal Server Error", error: error.message },
+      { status: 500 }
+    );
   }
 }
