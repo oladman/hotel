@@ -1,8 +1,8 @@
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { NextResponse } from "next/server";
 
-// Define auth options
 const authOptions = {
   providers: [
     GithubProvider({
@@ -16,7 +16,6 @@ const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        // Example login logic
         if (
           credentials.email === "test@test.com" &&
           credentials.password === "1234"
@@ -27,19 +26,18 @@ const authOptions = {
       },
     }),
   ],
-  // Add callbacks, session, pages, etc. here if needed
 };
 
-// NextAuth v5 App Router: export GET and POST directly
-export const GET = async (req) => {
-  const res = NextAuth(req, authOptions);
-  return res;
-};
+// Wrap NextAuth in a function that returns a Response
+async function nextAuthHandler(req) {
+  const res = await NextAuth(req, authOptions);
+  // Convert NextAuthResult to NextResponse for App Router
+  return new NextResponse(JSON.stringify(res), { status: 200 });
+}
 
-export const POST = async (req) => {
-  const res = NextAuth(req, authOptions);
-  return res;
-};
+// ✅ Named exports for GET & POST
+export const GET = nextAuthHandler;
+export const POST = nextAuthHandler;
 
-// Force dynamic to prevent build-time pre-render
+// ✅ Prevent build-time pre-render
 export const dynamic = "force-dynamic";
