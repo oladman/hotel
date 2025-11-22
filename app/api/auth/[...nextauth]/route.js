@@ -30,11 +30,16 @@ const authOptions = {
   // Add callbacks, session, pages, etc. here if needed
 };
 
-// ✅ Create NextAuth handler
-const handler = (req, res) => NextAuth(req, res, authOptions);
+// NextAuth v5 App Router: export GET and POST directly
+export const GET = async (req) => {
+  const res = NextAuth(req, authOptions);
+  return res;
+};
 
-// ✅ Export only a default handler
-export default handler;
+export const POST = async (req) => {
+  const res = NextAuth(req, authOptions);
+  return res;
+};
 
-// ✅ Mark the route as dynamic so Next.js doesn't pre-render
+// Force dynamic to prevent build-time pre-render
 export const dynamic = "force-dynamic";
