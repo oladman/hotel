@@ -1,11 +1,9 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
-// Reuse Prisma client globally
+// ✅ Reuse Prisma globally
 let prisma;
-if (!global.prisma) {
-  global.prisma = new PrismaClient();
-}
+if (!global.prisma) global.prisma = new PrismaClient();
 prisma = global.prisma;
 
 export async function GET(req, { params }) {
@@ -20,15 +18,11 @@ export async function GET(req, { params }) {
       where: { id },
       include: {
         hotels: {
-          include: {
-            amenities: true,
-          },
+          include: { amenities: true },
         },
         aboutCountries: true,
         imageContents: true,
-        popularPlaces: {
-          include: { images: true },
-        },
+        popularPlaces: { include: { images: true } },
       },
     });
 
