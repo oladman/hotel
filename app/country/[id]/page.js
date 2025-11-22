@@ -1,11 +1,11 @@
-import CountryData from "/components/CountryData/CountryData"
+import CountryData from "@/components/CountryData/CountryData";
 
 
 
 async function getCountrybyID(id) {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/country/${id}`, {
-      catch: "no-store",
+      cache: "no-store"
     });
 
     if (!res.ok) {
