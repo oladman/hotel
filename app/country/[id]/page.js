@@ -1,5 +1,5 @@
 
-import CountryData from "@/components/CountryData/CountryData";
+import CountryData from "/components/CountryData/CountryData"
 
 const prisma = new PrismaClient();
 
