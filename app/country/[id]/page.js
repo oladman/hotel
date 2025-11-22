@@ -1,34 +1,30 @@
-
-import CountryData from "/components/CountryData/CountryData"
-
-const prisma = new PrismaClient();
+import CountryData from "/components/CountryData/CountryData";
 
 async function getCountrybyID(id) {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/country/${id}`, {
-      cache: "no-store"
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/country/${id}`,
+      { cache: "no-store" }
+    );
 
-    if (!country) {
-      throw new Error("Country not found");
+    if (!res.ok) {
+      throw new Error("Failed to fetch country");
     }
 
-    return country;
+    const data = await res.json();
+    return data;
   } catch (error) {
     console.log("Error fetching country:", error);
     return null;
   }
 }
 
-
-async function page({ params: { id } }) {
+export default async function Page({ params: { id } }) {
   const getCountryData = await getCountrybyID(id);
 
   return (
     <>
-     <CountryData getCountryData={getCountryData}/>
+      <CountryData getCountryData={getCountryData} />
     </>
   );
 }
-
-export default page;
