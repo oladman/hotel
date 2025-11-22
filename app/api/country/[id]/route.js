@@ -1,14 +1,9 @@
+
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-// ✅ Reuse Prisma globally
-let prisma;
-if (!global.prisma) global.prisma = new PrismaClient();
-prisma = global.prisma;
-
+import prisma from "../../../../lib/prisma";
 export async function GET(req, { params }) {
   try {
-    const id = params.id;
+    const { id } = params;
 
     if (!id || typeof id !== "string") {
       return NextResponse.json({ message: "Invalid country ID" }, { status: 400 });
