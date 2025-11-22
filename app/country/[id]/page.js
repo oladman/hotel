@@ -1,7 +1,7 @@
 
 import CountryData from "@/components/CountryData/CountryData";
 
-
+const prisma = new PrismaClient();
 
 async function getCountrybyID(id) {
   try {
@@ -9,12 +9,14 @@ async function getCountrybyID(id) {
       cache: "no-store"
     });
 
-    if (!res.ok) {
-      throw new Error("Failed to fetch Country");
+    if (!country) {
+      throw new Error("Country not found");
     }
-    return await res.json();
+
+    return country;
   } catch (error) {
     console.log("Error fetching country:", error);
+    return null;
   }
 }
 

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Styles from "./Checkout.module.css";
 import GuestInfoForm from "./GuestInfoForm";
@@ -8,7 +8,7 @@ import CancellationPolicy from "./CancellationPolicy";
 import Carousel from "./Carousel";
 import BookingSummary from "./BookingSummary";
 
-export default function CheckoutHotel() {
+function CheckoutHotelContent() {
   const params = useSearchParams();
   const [room, setRoom] = useState(null);
   const [hname, setHname] = useState(null);
@@ -47,5 +47,13 @@ export default function CheckoutHotel() {
 
       </div>
     </div>
+  );
+}
+
+export default function CheckoutHotel() {
+  return (
+    <Suspense fallback={<p>Loading checkout details...</p>}>
+      <CheckoutHotelContent />
+    </Suspense>
   );
 }
