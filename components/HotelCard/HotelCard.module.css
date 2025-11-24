@@ -144,7 +144,7 @@
 
 @media (max-width: 480px) {
  .container {
-  padding: 0rem .5rem;
+  padding: 0rem 1rem;
 
 }
 .details-row {
