@@ -215,6 +215,9 @@
   .menu-btn {
     display: block;
   }
+  .header-cover {
+  border-top: none;
+}
 }
 
 @media (max-width: 480px) {
