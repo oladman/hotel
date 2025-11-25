@@ -9,9 +9,8 @@ const Footer = () => {
       <div className={Styles['promo']}>
         <h2 className={Styles['promo-title']}>Get discounts instantly</h2>
         <p className={Styles['promo-text']}>
-          To save you just have to log in to your account and look for the experiences
-          with the green or yellow color code. On your first reservation you can enjoy a{" "}
-          <strong>10% discount</strong>.
+          Create an account and enjoy an <strong>instant 10%</strong> discount on your first reservation.
+         
         </p>
 
         <div className={Styles['input-wrapper']}>

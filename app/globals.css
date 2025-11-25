@@ -743,6 +743,14 @@ LOGIN STYLE END *************
   .section {
     margin-top: 3.7rem;
   }
+  .explore-city > div {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.all-destination-btn {
+ display: none;
+}
 }
 
 @media only screen and (max-width: 480px) {
@@ -750,4 +758,5 @@ LOGIN STYLE END *************
   padding: 0rem 1rem;
 
 }
+
 }

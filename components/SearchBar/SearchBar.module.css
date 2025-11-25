@@ -13,11 +13,14 @@
 
 
 .searchbar-section {
-  padding: 0.75rem 1.2rem;
+  padding: 0.5rem 1.2rem;
   border-right: 1px solid #e5e5e5;
   flex: 1;
    position: relative;
   z-index: 1; 
+    display: flex;
+  align-items: center;
+  gap: 15px;
 }
 .searchbar-date{
   display: flex;
@@ -32,7 +35,7 @@
 }
 
 .searchbar-icon {
-  font-size: 12px;
+  font-size: 20px;
   color: #222;
 }
 
