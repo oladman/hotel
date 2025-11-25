@@ -243,7 +243,12 @@
 
   .text-section h2 {
     display: block;
+     font-size: .8rem;
   }
+  .text-section h1 {
+  font-size: 1.6rem;
+
+}
   .hero-content {
     width: 100%;
     position: none;

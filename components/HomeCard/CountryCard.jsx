@@ -4,8 +4,8 @@ import Styles from "./HomeCard.module.css";
 
 export default function CountryCard({ country }) {
   return (
-    <Link href={`/country/${country.id}`}>
-      <div className={Styles["about_cards"]}>
+    <Link href={`/country/${country.id}` } className={Styles["CountryCard"]}>
+      
         <div className={Styles["card_cover"]}>
           <div className="card_img_wrapper"><Image
             src={`/images/${country.countryAttach}`}
@@ -16,7 +16,7 @@ export default function CountryCard({ country }) {
           /></div>
           <h3 className={Styles["card_title"]}>{country.countryName}</h3>
         </div>
-      </div>
+   
     </Link>
   );
 }
