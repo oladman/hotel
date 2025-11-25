@@ -222,7 +222,7 @@ flex-direction: column; /* stack vertically */
   margin-bottom: .5rem;
 }
 .email-input {
-  width: 1000%;
+  width: 100%;
   max-width: 100%;
  
 }
@@ -231,5 +231,9 @@ flex-direction: column; /* stack vertically */
 
 .column-main {
   display: none;
+}
+.email-input {
+font-size: 16px;
+ 
 }
 }

@@ -7,13 +7,13 @@ export default function CountryCard({ country }) {
     <Link href={`/country/${country.id}`}>
       <div className={Styles["about_cards"]}>
         <div className={Styles["card_cover"]}>
-          <Image
+          <div className="card_img_wrapper"><Image
             src={`/images/${country.countryAttach}`}
             alt={country.countryName}
-            width={400}
-            height={250}
+           fill
             className={Styles["card_img"]}
-          />
+             priority
+          /></div>
           <h3 className={Styles["card_title"]}>{country.countryName}</h3>
         </div>
       </div>
