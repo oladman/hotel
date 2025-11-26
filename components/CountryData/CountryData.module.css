@@ -230,12 +230,10 @@ font-size: 20px;
   width: 350px;
   border: 1px solid #f2f2f2;
   overflow: hidden;
-  border-radius: 10px;
   padding-bottom: 100px;
 }
 .popular-image {
   width: 100%;
-  border-radius: 10px;
   overflow: hidden;
 }
 .popular-image img {
@@ -373,6 +371,17 @@ color: #1e90ff;
 @media (max-width: 768px) {
  .container {
   padding: 0rem 1rem;
+
+}
+.HomeStayCard-cover h1{
+  font-size: 16px;
+  font-weight: 450;
+  margin-bottom: 10px;
+}
+.popular-places h2 {
+  font-weight: 450;
+  font-size: 16px;
+  margin-bottom: 10px;
 
 }
 }

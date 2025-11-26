@@ -9,7 +9,7 @@ import CountryHotels from "./CountryHotels";
 import PopularPlaces from "./PopularPlaces";
 
 export default function CountryData({ getCountryData }) {
-  if (!getCountryData) return <p>Loading country data...</p>;
+  if (!getCountryData) return <p className={Styles["container"]} style={{ fontSize:'14px', color:'#1e90ff' }} >Loading country data...</p>;
 
   return (
     <>

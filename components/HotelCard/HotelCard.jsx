@@ -39,13 +39,13 @@ const HotelCard = ({ hotels, beds, baths, bedrooms }) => {
                 <h3 className={Styles["card-title"]}>{hotelItem.Hname}</h3>
 
                 <div className={Styles["location"]}>
-                  <FaMapMarkerAlt />
+                  <FaMapMarkerAlt  className={Styles["location-icon"]}/>
                   <span>{hotelItem.Haddress}</span>
                 </div>
 
                 <div className={Styles["price-row"]}>
                   <p className={Styles["new-price"]}>
-                    ${hotelItem.startingPrice}/Night
+                    ${hotelItem.startingPrice}<span>/Night</span>
                   </p>
                 </div>
 
