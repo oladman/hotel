@@ -18,10 +18,9 @@
 .Country_Data_Header-top-most p:nth-child(2) {
   padding: 0 10px;
 }
+
 .Country_Data_Header-bottom-most > p{
   font-size: 14px;
-  color:#555;
-  margin-top: 5px;
 }
 .Country_Data_Header-top-most {
   display: flex;
@@ -91,7 +90,11 @@
 }
 
 .text-countryData div:nth-child(1) {
-  font-weight: bold;
+  font-weight: 500;
+  font-size: 16px;
+ 
+}
+.cover-text-countryData{
   font-size: 14px;
 }
 .text-countryData {
@@ -100,11 +103,13 @@
   margin-bottom: 20px;
 }
 .text-p-countryData {
-  margin: 10px;
-  text-align: justify;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: left;
   line-height: 19px;
-  font-size: 14px;
+ 
 }
+
 .popular-country_Data {
   margin-top: 40px;
 }
@@ -365,10 +370,16 @@ color: #1e90ff;
     font-size: 14px;
   }
 }
+@media (max-width: 768px) {
+ .container {
+  padding: 0rem 1rem;
+
+}
+}
 
 @media (max-width: 480px) {
  .container {
-  padding: 0rem 1rem;
+  padding: 0rem .5rem;
 
 }
 .popular-places h2 {
@@ -403,5 +414,13 @@ color: #1e90ff;
   width: 100%;
  
 }
-
+.Country_Data_Header-bottom-most > p{
+  font-size: 13px;
+}
+.Country_Data_Header-bottom-most > h1{
+ font-weight: 600;
+}
+  .mobile-carousel {
+    height: 250px;
+  }
 }
