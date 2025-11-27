@@ -9,7 +9,6 @@ import { LuX } from "react-icons/lu";
 const HotelDataSideBar = ({ hotel, roomTypes = [], onResults }) => {
   const [destination, setDestination] = useState(hotel?.Hname || "");
 
-
   useEffect(() => {
     if (hotel?.Hname && hotel.Hname !== destination) {
       setDestination(hotel.Hname);
@@ -17,7 +16,7 @@ const HotelDataSideBar = ({ hotel, roomTypes = [], onResults }) => {
   }, [hotel, destination]);
 
   const [adults, setAdults] = useState(2);
-  const [children, setChildren] = useState(0);
+  const [numChildren, setNumChildren] = useState(0);
   const [rooms, setRooms] = useState(1);
   const [petFriendly, setPetFriendly] = useState(false);
 
@@ -28,14 +27,12 @@ const HotelDataSideBar = ({ hotel, roomTypes = [], onResults }) => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const totalGuests = adults + children;
-
+  const totalGuests = adults + numChildren;
 
   const clearDestination = () => {
     setDestination("");
     if (onResults) onResults({ destination: "" });
   };
-
 
   const handleSearch = async () => {
     setErrorMessage("");
@@ -51,7 +48,7 @@ const HotelDataSideBar = ({ hotel, roomTypes = [], onResults }) => {
 
     if (!canAccommodate) {
       setErrorMessage(
-        `The available rooms can’t accommodate ${totalGuests} guests. Try booking more rooms for your trip.`
+        `The available rooms can't accommodate ${totalGuests} guests. Try booking more rooms.`
       );
       if (onResults) onResults([]);
       return;
@@ -61,11 +58,11 @@ const HotelDataSideBar = ({ hotel, roomTypes = [], onResults }) => {
       destination,
       checkIn: dates.startDate.toISOString(),
       checkOut: dates.endDate.toISOString(),
-      guests: totalGuests,
       adults,
-      children,
+      numChildren,
       rooms,
       petFriendly,
+      guests: totalGuests,
     };
 
     if (typeof window !== "undefined") {
@@ -95,7 +92,6 @@ const HotelDataSideBar = ({ hotel, roomTypes = [], onResults }) => {
 
   return (
     <div className={Styles["hotelDetailsRight"]}>
-     
       <div className={Styles["hotelPrice"]}>
         <p>Pricing per night</p>
         <div>
@@ -105,7 +101,6 @@ const HotelDataSideBar = ({ hotel, roomTypes = [], onResults }) => {
       </div>
 
       <div className={Styles["bookingSchedule"]}>
-
         <div className={Styles["bookingScheduleItem"]}>
           <label className={Styles["label-name"]}>Location</label>
           <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
@@ -125,30 +120,25 @@ const HotelDataSideBar = ({ hotel, roomTypes = [], onResults }) => {
           </div>
         </div>
 
-   
-     <GuestSelector
-  adults={adults}
-  numChildren={children}  // renamed prop
-  rooms={rooms}
-  petFriendly={petFriendly}
-  setAdults={setAdults}
-  setChildren={setChildren}
-  setRooms={setRooms}
-  setPetFriendly={setPetFriendly}
-/>
+        <GuestSelector
+          adults={adults}
+          numChildren={numChildren}
+          rooms={rooms}
+          petFriendly={petFriendly}
+          setAdults={setAdults}
+          setNumChildren={setNumChildren}
+          setRooms={setRooms}
+          setPetFriendly={setPetFriendly}
+        />
 
-
-        
         <DateSelector dates={dates} setDates={setDates} />
 
-      
         {errorMessage && (
           <p style={{ color: "red", fontSize: "0.9rem", marginTop: "10px" }}>
             {errorMessage}
           </p>
         )}
 
-        
         <Button className={Styles["reserveHotel-btn"]} onClick={handleSearch}>
           SEARCH
         </Button>

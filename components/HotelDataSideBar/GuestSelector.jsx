@@ -6,24 +6,24 @@ import GuestModal from "./GuestModal";
 
 export default function GuestSelector({
   adults,
-  numChildren,   // renamed from children
+  numChildren,
   rooms,
   petFriendly,
   setAdults,
-  setChildren,
+  setNumChildren,
   setRooms,
   setPetFriendly,
 }) {
   const [showGuestModal, setShowGuestModal] = useState(false);
   const [tempGuests, setTempGuests] = useState({
     adults,
-    numChildren,  // renamed here
+    numChildren,
     rooms,
     petFriendly,
   });
 
   const guestModalRef = useRef(null);
-  const totalGuests = adults + numChildren;  // updated
+  const totalGuests = adults + numChildren;
 
   useEffect(() => {
     const handler = (e) => {
@@ -38,9 +38,10 @@ export default function GuestSelector({
   return (
     <div className={Styles["bookingScheduleItem"]}>
       <p className={Styles["label-name"]}>Guests and Rooms</p>
+
       <div
         onClick={() => {
-          setTempGuests({ adults, numChildren, rooms, petFriendly }); // updated
+          setTempGuests({ adults, numChildren, rooms, petFriendly });
           setShowGuestModal(true);
         }}
       >
@@ -56,7 +57,7 @@ export default function GuestSelector({
           tempGuests={tempGuests}
           setTempGuests={setTempGuests}
           setAdults={setAdults}
-          setChildren={setChildren}
+          setNumChildren={setNumChildren}
           setRooms={setRooms}
           setPetFriendly={setPetFriendly}
           close={() => setShowGuestModal(false)}

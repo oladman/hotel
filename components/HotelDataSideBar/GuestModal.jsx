@@ -9,7 +9,7 @@ export default function GuestModal({
   tempGuests,
   setTempGuests,
   setAdults,
-  setChildren,
+  setNumChildren,
   setRooms,
   setPetFriendly,
   close,
@@ -20,24 +20,28 @@ export default function GuestModal({
       className={Styles["guest-modal"]}
       onClick={(e) => e.stopPropagation()}
     >
-    
       <div className={Styles["guest-row"]}>
         <span>Adults</span>
         <div className={Styles["counter"]}>
           <Button
             onClick={() =>
-              setTempGuests((g) => ({ ...g, adults: Math.max(1, g.adults - 1) }))
+              setTempGuests((g) => ({
+                ...g,
+                adults: Math.max(1, g.adults - 1),
+              }))
             }
             className={Styles["optionCounterButton"]}
           >
             <LuMinus />
           </Button>
+
           <input
             type="text"
             value={tempGuests.adults}
             readOnly
             className={Styles["optionItem"]}
           />
+
           <Button
             onClick={() =>
               setTempGuests((g) => ({ ...g, adults: g.adults + 1 }))
@@ -49,7 +53,7 @@ export default function GuestModal({
         </div>
       </div>
 
-      
+      {/* CHILDREN */}
       <div className={Styles["guest-row"]}>
         <span>Children</span>
         <div className={Styles["counter"]}>
@@ -57,22 +61,27 @@ export default function GuestModal({
             onClick={() =>
               setTempGuests((g) => ({
                 ...g,
-                children: Math.max(0, g.children - 1),
+                numChildren: Math.max(0, g.numChildren - 1),
               }))
             }
             className={Styles["optionCounterButton"]}
           >
             <LuMinus />
           </Button>
+
           <input
             type="text"
-            value={tempGuests.children}
+            value={tempGuests.numChildren}
             readOnly
             className={Styles["optionItem"]}
           />
+
           <Button
             onClick={() =>
-              setTempGuests((g) => ({ ...g, children: g.children + 1 }))
+              setTempGuests((g) => ({
+                ...g,
+                numChildren: g.numChildren + 1,
+              }))
             }
             className={Styles["optionCounterButton"]}
           >
@@ -81,7 +90,7 @@ export default function GuestModal({
         </div>
       </div>
 
-      
+      {/* ROOMS */}
       <div className={Styles["guest-row"]}>
         <span>Rooms</span>
         <div className={Styles["counter"]}>
@@ -96,12 +105,14 @@ export default function GuestModal({
           >
             <LuMinus />
           </Button>
+
           <input
             type="text"
             value={tempGuests.rooms}
             readOnly
             className={Styles["optionItem"]}
           />
+
           <Button
             onClick={() =>
               setTempGuests((g) => ({ ...g, rooms: g.rooms + 1 }))
@@ -115,12 +126,13 @@ export default function GuestModal({
 
       <hr className={Styles["hr-line"]} />
 
-     
+      {/* PET FRIENDLY */}
       <div className={Styles["pet-row"]}>
         <label>
           <strong>Pet friendly</strong>
           <p>Only show stays that allow pets</p>
         </label>
+
         <input
           type="checkbox"
           checked={tempGuests.petFriendly}
@@ -131,15 +143,15 @@ export default function GuestModal({
         />
       </div>
 
-     
       <div className={Styles["btn-cover"]}>
         <Button onClick={close} className={Styles["cancel-btn"]}>
           Cancel
         </Button>
+
         <Button
           onClick={() => {
             setAdults(tempGuests.adults);
-            setChildren(tempGuests.children);
+            setNumChildren(tempGuests.numChildren);
             setRooms(tempGuests.rooms);
             setPetFriendly(tempGuests.petFriendly);
             close();
