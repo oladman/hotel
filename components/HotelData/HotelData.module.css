@@ -126,7 +126,6 @@
 
 .hotelDescription {
   font-size: 14px;
-  line-height: 20px;
   text-align: left;
   color: #555;
   line-height: 25px;
@@ -239,11 +238,7 @@
   margin-left: 4px;
 }
 
-.Country_Data_image {
-  display: flex;
-  gap: 10px;
-  width: 100%;
-}
+
 .first-image-countryData {
   object-fit: cover;
   object-position: center;
@@ -306,7 +301,7 @@
     position: relative;
     display: block;
     width: 100%;
-    height: 400px;
+    height: 250px;
     overflow: hidden;
   }
   .Country_Data_Header {
@@ -358,7 +353,7 @@
   margin-top: 20px;
 }
 .hotelDetailsLeft {
-  gap: 30px;
+  gap: 20px;
   width: 100%;
 }
 .coverExtendedAmenities {
@@ -371,15 +366,49 @@ gap: 10px;
   gap: 20px;
 
 }
+.Available-room {
+  margin-top: 30px;
+}
+.Available-room h1 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
 }
 
+
+@media (max-width: 768px) {
+.hotelDataCover {
+  margin-top: 0px;
+}
+.Country_Data_image {
+  display: flex;
+  height: 250px;
+}
+.container {
+padding: 0rem 1rem;
+}
+.hotelName {
+  font-weight: 600;
+}
+.hotelAmenities h2 {
+  margin-bottom:0px;
+    font-size: 1.4rem;
+}
+.hotelDetailsLeft {
+  gap: 10px;
+}
+.Available-room {
+  margin-top: 20px;
+}
+
+}
 @media (max-width: 480px) {
  
 .Country_Data_Header {
   gap: 10px;
 }
 .container {
-padding: 0rem 1rem;
+padding: 0rem .5rem;
 }
 .hotelHeader {
   margin-bottom: 0px;
@@ -389,5 +418,8 @@ padding: 0rem 1rem;
 }
 .extendedAmenities > div {
   gap: 5px;
+}
+.Available-room h1 {
+  font-size: 1.2rem;
 }
 }

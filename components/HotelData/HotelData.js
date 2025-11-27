@@ -34,7 +34,6 @@ import HotelImageGallery from "./HotelImageGallery";
 import HotelAmenities from "./HotelAmenities";
 
 export default function HotelData({ hotel, initialRooms = [], hotelName }) {
-
   // ✅ Hooks must always run
   const [filteredRoomTypes, setFilteredRoomTypes] = useState(
     initialRooms.length > 0 ? initialRooms : hotel?.roomTypes || []
@@ -72,19 +71,23 @@ export default function HotelData({ hotel, initialRooms = [], hotelName }) {
   } = hotel;
 
   return (
-    <div className={Styles["container"]}>
-      <header className={Styles["Country_Data_Header"]}>
+    <>
+      <header
+        className={`${Styles["Country_Data_Header"]} ${Styles["container"]}`}
+      >
         <Breadcrumbs countryName={country?.countryName} hotelName={Hname} />
         <HotelHeader Hname={Hname} Haddress={Haddress} rating={rating} />
       </header>
-
-      <section className={Styles["hotelDataCover"]}>
-        <HotelImageGallery image={image} images={images} Hname={Hname} />
-
+      <HotelImageGallery image={image} images={images} Hname={Hname} />
+      <section className={`${Styles["hotelDataCover"]} ${Styles["container"]}`}>
         <div className={Styles["fullHotelDetails"]}>
           <div className={Styles["hotelDetailsLeft"]}>
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-              <h1 className={Styles["hotelDetailsLeftHeading"]}>About the Hotel</h1>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+            >
+              <h1 className={Styles["hotelDetailsLeftHeading"]}>
+                About the Hotel
+              </h1>
               <p className={Styles["hotelDescription"]}>{Hdescription}</p>
             </div>
 
@@ -95,15 +98,21 @@ export default function HotelData({ hotel, initialRooms = [], hotelName }) {
 
             <div className={Styles["coverExtendedAmenities"]}>
               <div className={Styles["extendedAmenities"]}>
-                <i><LuBuilding2 /></i>
+                <i>
+                  <LuBuilding2 />
+                </i>
                 <div>
                   <p>Dedicated Workspace</p>
-                  <p>A common area with wifi that&apos;s well-suited for working</p>
+                  <p>
+                    A common area with wifi that&apos;s well-suited for working
+                  </p>
                 </div>
               </div>
 
               <div className={Styles["extendedAmenities"]}>
-                <i><LuUser /></i>
+                <i>
+                  <LuUser />
+                </i>
                 <div>
                   <p>Self check-in</p>
                   <p>Check yourself in with the lockbox.</p>
@@ -111,7 +120,9 @@ export default function HotelData({ hotel, initialRooms = [], hotelName }) {
               </div>
 
               <div className={Styles["extendedAmenities"]}>
-                <i><LuCalendar /></i>
+                <i>
+                  <LuCalendar />
+                </i>
                 <div>
                   <p>Free Cancellation</p>
                   <p>Places in free cancellation for 48 hours</p>
@@ -137,6 +148,6 @@ export default function HotelData({ hotel, initialRooms = [], hotelName }) {
           )}
         </section>
       </section>
-    </div>
+    </>
   );
 }

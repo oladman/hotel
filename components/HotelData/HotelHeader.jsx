@@ -14,8 +14,8 @@ export default function HotelHeader({ Hname, Haddress, rating }) {
 
         <div className={Styles["ratingSection"]}>
           <FaStar color="#f5bd56ff" />
-          <span className={Styles["ratingValue"]}>{rating ?? 0}</span>
-          <p className={Styles["ratingReviews"]}>(1,500 reviews)</p>
+          <span className={Styles["ratingValue"]}>{rating ?? 0} reviews</span>
+         
         </div>
       </div>
     </div>

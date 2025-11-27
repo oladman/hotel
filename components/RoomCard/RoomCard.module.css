@@ -207,7 +207,11 @@
   cursor: pointer;
   z-index: 10;
 }
-
+@media (max-width: 768px) {
+.room-card {
+  border-radius: 0.3rem;
+}
+}
 @media (max-width: 480px) {
 .room-content {
   padding: 1rem .5rem;
@@ -233,7 +237,7 @@
 .choose-btn {
   background: var(darkblue);
   border-radius: 0.5rem;
-  padding: 8px 12px;
+  padding: 10px 12px;
  width: 100%;
 }
 .rooms-container {
