@@ -4,7 +4,7 @@
   width: 30%;
   background-color: #f2f2f2;
   border-radius: 10px;
- box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .hotelPrice {
   display: flex;
@@ -14,7 +14,6 @@
   background-color: #fff;
   padding: 20px;
 
-  border-radius: 10px;
 
 }
 .hotelPrice > p {
@@ -207,4 +206,26 @@ margin-top: 5px;
   
 }
 
+}
+
+@media (max-width: 768px) {
+.hotelPrice {
+  padding: 10px;
+  border-radius: 0px;
+
+}
+.bookingSchedule {
+  gap: 10px;
+  padding: 10px;
+  border-radius: 0px;
+}
+
+.bookingScheduleItem > div {
+  border-radius: 0px;
+}
+.reserveHotel-btn {
+  border-radius: 10px;
+
+
+}
 }
