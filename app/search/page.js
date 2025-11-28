@@ -93,7 +93,7 @@ function SearchPageContent() {
   const handleDecrement = (setter, value) => setter(value > 0 ? value - 1 : 0);
 
   return (
-    <div className={Styles["search-page"]}>
+    <div className={`${Styles["search-page"]} ${Styles["container"]}`}>
       {/* ✅ Spinner Overlay */}
       {loading && (
         <div className={Styles["spinner-overlay"]}>
@@ -123,7 +123,7 @@ function SearchPageContent() {
             onClick={() => setShowDateModal(!showDateModal)}
           >
             <strong>
-              {format(dates.startDate, "MMM d")} - {format(dates.endDate, "MMM d")}
+              {format(dates.startDate, "MMM d")} - {format(dates.endDate, "d")}
             </strong>
           </div>
 
@@ -274,11 +274,11 @@ function SearchPageContent() {
                       <FaStar className={Styles["star"]} />
                       <span>{hotel.rating}</span>
                       <span className={Styles["reviews"]}>
-                        ({hotel.rating || 10} reviews)
+                         reviews
                       </span>
                     </div>
                     <div className={Styles["price"]}>
-                      <strong>${hotel.startingPrice}</strong> /night
+                      <strong>${hotel.startingPrice}</strong> <small>/night</small>
                       <div className={Styles["total"]}>
                         ${hotel.startingPrice} total
                       </div>
