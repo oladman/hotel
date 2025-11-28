@@ -370,7 +370,7 @@ color: #1e90ff;
 }
 @media (max-width: 768px) {
  .container {
-  padding: 0rem 1rem;
+  padding: 0rem 0.7rem;
 
 }
 .HomeStayCard-cover h1{

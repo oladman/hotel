@@ -222,6 +222,6 @@
 
 @media (max-width: 480px) {
 .container {
-padding: 0rem 1rem;
+padding: 0rem 0.7rem;
 }
 }
