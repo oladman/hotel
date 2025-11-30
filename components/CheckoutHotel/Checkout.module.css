@@ -130,7 +130,7 @@
   background-color: #f7f8f9;
   padding: 10px;
 }
-.hotel-info-right h3 {
+.hotel-info-right h2 {
   font-size: 18px;
   font-weight: 500;
 }
@@ -150,7 +150,7 @@
 }
 
 .booking-container {
-  padding: 2rem;
+  padding: 1rem 0px 0px 0px;
   background-color: #fafafa;
   border-radius: 10px;
 }
@@ -250,7 +250,6 @@ padding: 0rem .7rem;
 }
 .booking-container {
   padding: 0rem;
-  border-radius: 10px;
 
 
 }

@@ -200,7 +200,7 @@
 @media only screen and (max-width: 768px) {
 .footer {
   margin-top: 0px;
-  padding-top:1rem ;
+  padding-top:1.2rem ;
 }
 .input-wrapper {
 flex-direction: column; /* stack vertically */
@@ -208,7 +208,7 @@ flex-direction: column; /* stack vertically */
 
 }
 .promo {
-  padding: 1rem 0.7rem;
+  padding: 1.2rem 0.7rem;
   width: 90%;
   max-width: 100%;
   margin: 0 auto 1rem;

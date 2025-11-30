@@ -212,14 +212,23 @@
 
 .addressRow {
   display: flex;
-  align-items: center;
   gap: 6px;
-  font-size: 14px;
+
+}
+.addressTextCover{
+  display: flex;
+   gap: 6px;
+
 }
 
 .addressText {
   margin: 0;
-  color: #333;
+  color: grey;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-style: italic;
 }
 
 .ratingSection {
@@ -230,6 +239,7 @@
 
 .ratingValue {
   font-weight: 600;
+  font-size: 14px;
 }
 
 .ratingReviews {
@@ -414,6 +424,7 @@ padding: 0rem .7rem;
   margin-bottom: 0px;
 }
 .addressRow {
+  flex-direction: column;
   font-size: 12px;
 }
 .extendedAmenities > div {
@@ -421,5 +432,15 @@ padding: 0rem .7rem;
 }
 .Available-room h1 {
   font-size: 1.2rem;
+}
+.hotelName {
+  font-size: 20px;
+}
+.ratingValue {
+  font-weight: 500;
+  font-size: 12px;
+}
+.addressText {
+  font-size: 12px;
 }
 }

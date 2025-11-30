@@ -9,8 +9,9 @@ export default function HotelHeader({ Hname, Haddress, rating }) {
       <h1 className={Styles["hotelName"]}>{Hname}</h1>
 
       <div className={Styles["addressRow"]}>
-        <FaMapMarkerAlt size={16} color="#000" />
+        <div className={Styles["addressTextCover"]} ><FaMapMarkerAlt size={14} color="grey" />
         <p className={Styles["addressText"]}>{Haddress} |</p>
+          </div>
 
         <div className={Styles["ratingSection"]}>
           <FaStar color="#f5bd56ff" />

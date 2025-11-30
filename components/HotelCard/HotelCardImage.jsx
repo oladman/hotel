@@ -2,6 +2,7 @@ import { FaStar } from "react-icons/fa";
 import Styles from "./HotelCard.module.css"; // same CSS file
 
 const HotelCardImage = ({ image, alt, rating }) => {
+  console.log('images', image)
   return (
     <div className={Styles["image-section"]}>
       <img

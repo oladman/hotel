@@ -11,14 +11,15 @@ export default function Breadcrumbs({ countryName, hotelName }) {
 
       <FontAwesomeIcon
         icon={faAngleRight}
-        style={{ padding: "0 10px", fontSize: "12px", color: "grey" }}
+       
+        className={Styles["icon"]}
       />
 
       <p>{countryName}</p>
 
       <FontAwesomeIcon
         icon={faAngleRight}
-        style={{ padding: "0 10px", fontSize: "12px", color: "grey" }}
+       className={Styles["icon"]}
       />
 
       <p>{hotelName || ""}</p>
