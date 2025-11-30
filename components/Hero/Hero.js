@@ -36,8 +36,8 @@ export default function Hero() {
           </div>
 
           <div className={Styles['hotel-card']}>
-            <h4>Sanirah Hotel</h4>
-            <p>Yogyakarta, Indonesia</p>
+            <h4>Marriott Hotel</h4>
+            <p>Park Lane, London</p>
             <ul>
               <li>340 sqm</li>
               <li>1 Bed</li>
