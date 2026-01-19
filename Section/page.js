@@ -1,10 +1,11 @@
 import HomeCard from "../components/HomeCard/HomeCard";
 import Hero from "../components/Hero/Hero";
 import Button from "../components/Button";
+import { getCountry } from "../lib/api/getCountry";
 
 
-function page() {
-  
+async function page() {
+  const countryList = await getCountry();
 
   return (
     <>
@@ -19,7 +20,7 @@ function page() {
       </div>
       </div> 
         <div className="sectionCard-style">
-          <HomeCard />
+          <HomeCard countryList={countryList}/>
         </div>
       </div>
     </>

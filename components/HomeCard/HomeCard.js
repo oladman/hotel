@@ -1,20 +1,41 @@
+"use client";
+import { useState } from "react";
 import Styles from "./HomeCard.module.css";
-import { getCountry } from "../../lib/api/getCountry";
 import CountryCard from "./CountryCard";
 import EmptyState from "./EmptyState";
+import Pagination from "../Pagination/Pagination";
 
-export default async function HomeCard() {
-  const countryList = await getCountry();
+export default function HomeCard({ countryList }) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(20);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = countryList.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <section className={Styles["cover-HomeCard"]}>
-      {countryList.length > 0 ? (
-        countryList.map((country) => (
-          <CountryCard key={country.id} country={country} />
-        ))
-      ) : (
-        <EmptyState />
-      )}
-    </section>
+    <div className={Styles["container"]}>
+      <section className={Styles["cover-HomeCard"]}>
+        {currentItems.length > 0 ? (
+          currentItems.map((country) => (
+            <CountryCard key={country.id} country={country} />
+          ))
+        ) : (
+          <EmptyState />
+        )}
+      </section>
+      <div className={Styles["pagination-wrapper"]}>
+        <Pagination
+          itemsPerPage={itemsPerPage}
+          totalItems={countryList.length}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
+      </div>
+    </div>
   );
 }
+
+

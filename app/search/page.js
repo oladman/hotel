@@ -257,7 +257,7 @@ function SearchPageContent() {
               <div className={Styles["hotel-card"]}>
                 <div className={Styles["image-container"]}>
                   <img
-                    src={`/images/${hotel.image}` || "/default-hotel.jpg"}
+                    src={`/images/hotels/${hotel.image}` || "/default-hotel.jpg"}
                     alt={hotel.Hname}
                   />
                   {hotel.badge && <span className={Styles["badge"]}>{hotel.badge}</span>}

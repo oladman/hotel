@@ -1,7 +1,6 @@
 .Country_Data_Header {
   padding: 1rem 0;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid #e0e0e0;
 }
 .Country_Data_Header-top-most p {
   font-size: 12px;
@@ -26,7 +25,7 @@
 }
 
 .Country_Data_Header-bottom-most > p {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #666;
   font-style: italic;
 }
@@ -113,7 +112,7 @@
 }
 
 .text-p-countryData {
-  font-size: 1.1rem;
+  font-size: 0.875rem;
   line-height: 1.8;
   color: #555;
   text-align: justify;

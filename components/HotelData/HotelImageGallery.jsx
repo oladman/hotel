@@ -33,7 +33,7 @@ export default function HotelImageGallery({ image, images = [], Hname }) {
         
         {image && (
           <img
-            src={image.startsWith("http") ? image : `/images/${image}`}
+            src={image.startsWith("http") ? image : `/images/hotels/${image}`}
             alt={Hname}
             className={Styles["first-image-countryData"]}
           />
@@ -48,7 +48,7 @@ export default function HotelImageGallery({ image, images = [], Hname }) {
             >
               <img
                 className={Styles["image-countryData"]}
-                src={`/images/${hotelImage.url}`}
+                src={`/images/hotels/${hotelImage.url}`}
                 alt={hotelImage.caption || `${Hname} view`}
               />
 
@@ -68,7 +68,7 @@ export default function HotelImageGallery({ image, images = [], Hname }) {
           src={
             galleryImages[currentIndex].imageUrl.startsWith("http")
               ? galleryImages[currentIndex].imageUrl
-              : `/images/${galleryImages[currentIndex].imageUrl}`
+              : `/images/hotels/${galleryImages[currentIndex].imageUrl}`
           }
           alt="mobile-carousel"
           className={Styles["carousel-image"]}

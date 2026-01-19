@@ -690,7 +690,7 @@ LOGIN STYLE END *************
     flex: 1 1 100%;
   }
 
-  /* find space  */
+ 
   .find-space {
     display: flex;
     flex-direction: column;

@@ -7,7 +7,7 @@ const HotelCardImage = ({ image, alt, rating }) => {
     <div className={Styles["image-section"]}>
       <img
         className={Styles["card-image"]}
-        src={`/images/${image}`}
+        src={`/images/hotels/${image}`}
         alt={alt}
       />
 

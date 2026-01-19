@@ -68,17 +68,7 @@ const HotelCard = ({ hotels, beds, baths, bedrooms }) => {
                 ))}
               </ul>
 
-              <div className={Styles["details-row"]}>
-                <div>
-                  <FaBed /> {beds || 6} beds
-                </div>
-                <div>
-                  <FaBath /> {baths || 1} bath
-                </div>
-                <div>
-                  <FaBed /> {bedrooms || 3} bedrooms
-                </div>
-              </div>
+            
             </div>
           </Link>
         ))

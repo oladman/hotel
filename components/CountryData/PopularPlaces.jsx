@@ -20,7 +20,7 @@ export default function PopularPlaces({ getCountryData }) {
                   popular.images.map((imgSrc, i) => (
                     <img
                       key={i}
-                      src={`/images/${imgSrc.url}`}
+                      src={`/images/popularPlaces/${imgSrc.url}`}
                       alt={imgSrc.caption || popular.placeName}
                     />
                   ))
@@ -39,14 +39,7 @@ export default function PopularPlaces({ getCountryData }) {
                 </p>
               </div>
 
-              <div className={Styles["explore-city"]}>
-                <Button className={Styles["buttonExplore"]}>
-                  Explore City
-                </Button>
-                <Button className={Styles["buttonExplore"]}>
-                  Find Hotels
-                </Button>
-              </div>
+              
             </div>
           ))
         ) : (
