@@ -1,8 +1,7 @@
 .Country_Data_Header {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-   margin-bottom: 20px;
+  padding: 1rem 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
 }
 .Country_Data_Header-top-most p {
   font-size: 12px;
@@ -19,8 +18,17 @@
   padding: 0 10px;
 }
 
-.Country_Data_Header-bottom-most > p{
-  font-size: 14px;
+.Country_Data_Header-bottom-most h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.Country_Data_Header-bottom-most > p {
+  font-size: 1.1rem;
+  color: #666;
+  font-style: italic;
 }
 .Country_Data_Header-top-most {
   display: flex;
@@ -43,16 +51,17 @@
   display: flex;
   gap: 10px;
   width: 100%;
+  height: 400px;
 }
 .first-image-countryData {
-  object-fit: cover;
-  object-position: center;
   width: 50%;
   padding-right: 1px;
 }
 .first-image-countryData > img {
   width: 100%;
   height: 100%;
+    object-fit: cover;
+  object-position: center;
 }
 .cover-fetched-imageData {
   display: grid;
@@ -63,7 +72,7 @@
 
 .cover-image-countryData {
   position: relative;
-  height: 220px;    
+  height: 200px; 
   max-width: 350px; 
   width: 100%;
   overflow: hidden;
@@ -98,16 +107,17 @@
   font-size: 14px;
 }
 .text-countryData {
-  width: 80%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
+
 .text-p-countryData {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  text-align: left;
-  line-height: 19px;
- 
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+  text-align: justify;
+  margin-bottom: 1.5rem;
 }
 
 .popular-country_Data {
@@ -222,39 +232,70 @@ font-size: 20px;
 }
 .popular-card {
   display: flex;
-  gap: 20px;
-  margin-right: 50px;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 0.625rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
+
+.popular-card::-webkit-scrollbar {
+  display: none;
+}
+
 .popular-id {
-  height: 400px;
-  width: 350px;
-  border: 1px solid #f2f2f2;
+  flex: 0 0 auto;
+  width: 21.875rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
   overflow: hidden;
-  padding-bottom: 100px;
+  transition: box-shadow 0.3s ease;
+  background-color: #ffffff;
 }
+
+.popular-id:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .popular-image {
   width: 100%;
+  height: 12.5rem;
   overflow: hidden;
 }
+
 .popular-image img {
-  height: 200px;
   width: 100%;
-  margin-bottom: 10px;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
 }
+
+.popular-id:hover .popular-image img {
+  transform: scale(1.05);
+}
+
 .popular-body-text {
-  padding: 20px;
-  margin-bottom: 0px;
-  white-space: normal;
-  text-overflow: ellipsis;
+  padding: 1.25rem;
 }
+
 .popular-body-text h4 {
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
 }
+
 .popular-about {
-  font-size: 12px;
-  text-align: justify;
-  white-space: normal;
+  font-size: 0.875rem;
+  color: #666;
+  line-height: 1.5;
+  height: 4.5em;
+  overflow: hidden;
   text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 .explore-city {
   margin-left: 20px;
@@ -318,7 +359,8 @@ color: #1e90ff;
     position: relative;
     display: block;
     width: 100%;
-    height: 300px;
+    max-height: 400px;
+    height: 100%;
     overflow: hidden;
   }
 .Country_Data_Header {
@@ -328,6 +370,7 @@ color: #1e90ff;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
    
   }
 .text-countryData {
@@ -369,6 +412,9 @@ color: #1e90ff;
   }
 }
 @media (max-width: 768px) {
+  .Country_Data_Header-bottom-most h1 {
+    font-size: 2rem;
+  }
  .container {
   padding: 0rem 0.7rem;
 
@@ -387,6 +433,12 @@ color: #1e90ff;
 }
 
 @media (max-width: 480px) {
+  .Country_Data_Header-bottom-most h1 {
+    font-size: 1.5rem;
+  }
+  .text-p-countryData {
+    font-size: 1rem;
+  }
 .popular-places h2 {
   margin-top:0px;
   margin-bottom: 10px;
@@ -426,6 +478,12 @@ color: #1e90ff;
  font-weight: 600;
 }
   .mobile-carousel {
-    height: 250px;
+    max-height: 250px;
+    height: 100%;
+    padding: 0;
+    margin: 0;
   }
+  .Country_Data_image {
+  height: 250px;
+}
 }
