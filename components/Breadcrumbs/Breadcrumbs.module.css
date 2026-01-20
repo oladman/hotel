@@ -21,12 +21,26 @@
 }
 
 
-.breadcrumbs p:last-child {
+.breadcrumbs span {
+  color: #666;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.breadcrumb-link {
+  color: black;
+  text-decoration: none;
+}
+
+.breadcrumb-link:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 768px) {
+  .breadcrumbs {
+    font-size: 10px;
+  }
  .icon {
   padding: 0 0px;
 }

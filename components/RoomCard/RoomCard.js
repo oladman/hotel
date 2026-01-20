@@ -133,7 +133,7 @@ function RoomCard({ room, Hname }) {
               {images.map((img) => (
                 <div className={Styles["slide"]} key={img.id}>
                   <Image
-                    src={`/images/${img.url}`}
+                    src={`/images/rooms/${img.url}`}
                     alt={img.caption || room.name}
                     fill
                     sizes="(max-width: 480px) 100vw, 400px"

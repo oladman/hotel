@@ -3,26 +3,27 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import Styles from "./Breadcrumbs.module.css";
+import Link from "next/link";
 
-export default function Breadcrumbs({ name, hotelName }) {
+export default function Breadcrumbs({ name, countryId, hotelName }) {
   return (
-    <div className={Styles["breadcrumbs"]}>
-      <p>Home</p>
+    <nav aria-label="breadcrumb" title="breadcrumb" className={Styles["breadcrumbs"]}>
+      <Link href="/" className={Styles["breadcrumb-link"]}>Home</Link>
 
-      <FontAwesomeIcon
-        icon={faAngleRight}
-       
-        className={Styles["icon"]}
-      />
+      <FontAwesomeIcon icon={faAngleRight} className={Styles["icon"]} />
 
-      <p>{name}</p>
+      {countryId ? (
+        <Link href={`/country/${countryId}`} className={Styles["breadcrumb-link"]}>{name}</Link>
+      ) : (
+        <span aria-current="page">{name}</span>
+      )}
 
-      <FontAwesomeIcon
-        icon={faAngleRight}
-       className={Styles["icon"]}
-      />
-
-      <p>{hotelName || ""}</p>
-    </div>
+      {hotelName && (
+        <>
+          <FontAwesomeIcon icon={faAngleRight} className={Styles["icon"]} />
+          <span aria-current="page">{hotelName}</span>
+        </>
+      )}
+    </nav>
   );
 }

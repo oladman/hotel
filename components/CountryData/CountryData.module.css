@@ -1,4 +1,9 @@
 .Country_Data_Header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
   padding: 1rem 0;
   margin-bottom: 1.5rem;
 }
@@ -20,14 +25,13 @@
 .Country_Data_Header-bottom-most h1 {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #333;
+  color: #191E3B;
   margin-bottom: 0.5rem;
 }
 
 .Country_Data_Header-bottom-most > p {
-  font-size: 1rem;
-  color: #666;
-  font-style: italic;
+  font-size: 0.875rem;
+  color: #191E3B;
 }
 .Country_Data_Header-top-most {
   display: flex;
@@ -114,7 +118,7 @@
 .text-p-countryData {
   font-size: 0.875rem;
   line-height: 1.8;
-  color: #555;
+  color: #191E3B;
   text-align: justify;
   margin-bottom: 1.5rem;
 }
@@ -429,6 +433,12 @@ color: #1e90ff;
   margin-bottom: 10px;
 
 }
+.text-p-countryData {
+   font-size: 1rem; 
+    line-height: 1.6;
+    text-align: left;
+    margin-bottom: 1.25rem;
+}
 }
 
 @media (max-width: 480px) {
@@ -436,7 +446,8 @@ color: #1e90ff;
     font-size: 1.5rem;
   }
   .text-p-countryData {
-    font-size: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.55;
   }
 .popular-places h2 {
   margin-top:0px;

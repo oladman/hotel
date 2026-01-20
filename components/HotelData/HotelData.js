@@ -72,11 +72,13 @@ export default function HotelData({ hotel, initialRooms = [], hotelName }) {
 
   return (
     <>
-      <header
-        className={`${Styles["Country_Data_Header"]} ${Styles["container"]}`}
-      >
-        <Breadcrumbs countryName={country?.name} hotelName={name} />
-        <HotelHeader Hname={name} Haddress={address} rating={rating} />
+      <div className={Styles["container"]}>
+        <Breadcrumbs name={country?.name} countryId={country?.id} hotelName={name} />
+      </div>
+      <header className={Styles["Country_Data_Header"]}>
+        <div className={Styles["container"]}>
+          <HotelHeader Hname={name} Haddress={address} rating={rating} />
+        </div>
       </header>
       <HotelImageGallery image={image} hotelImages={hotelImages} Hname={name} />
       <section className={`${Styles["hotelDataCover"]} ${Styles["container"]}`}>

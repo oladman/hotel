@@ -1,8 +1,4 @@
-.Country_Data_Header {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
+
 .Country_Data_Header-top-most p {
   font-size: 14px;
 }
@@ -199,6 +195,7 @@
 
 .hotelHeader {
   display: flex;
+  width: 100%;
   flex-direction: column;
   gap: 6px;
   margin-bottom: 20px;
