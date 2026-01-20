@@ -8,13 +8,13 @@ export default function CountryCard({ country }) {
       
         <div className={Styles["card_cover"]}>
           <div className="card_img_wrapper"><Image
-            src={`/images/countries/${country.countryAttach}`}
-            alt={country.countryName}
+            src={`/images/countries/${country.image}`}
+            alt={country.name}
            fill
             className={Styles["card_img"]}
              priority
           /></div>
-          <h3 className={Styles["card_title"]}>{country.countryName}</h3>
+          <h3 className={Styles["card_title"]}>{country.name}</h3>
         </div>
    
     </Link>

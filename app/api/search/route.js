@@ -16,12 +16,12 @@ export async function GET(req) {
 
     const hotels = await prisma.hotel.findMany({
       where: {
-        Hname: { contains: destination, mode: "insensitive" },
+        name: { contains: destination, mode: "insensitive" },
       },
       include: {
         amenities: true,
         reviews: true,
-        images: true,
+        hotelImages: true,
         promotions: true,
         popularPlaces: true,
         country: true,

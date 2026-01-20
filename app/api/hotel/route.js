@@ -9,14 +9,14 @@ export const dynamic = 'force-dynamic';
 export async function POST(request) {
   try {
     const data = await request.json();
-    const { Country, Hname, Haddress, Hdescription, image } = data;
+    const { countryId, name, address, description, image } = data;
 
     const newHotel = await prisma.hotel.create({
       data: {
-        Country,
-        Hname,
-        Haddress,
-        Hdescription,
+        country: { connect: { id: countryId } },
+        name,
+        address,
+        description,
         image,
       },
     });
@@ -37,10 +37,10 @@ export async function GET(request) {
     let hotels;
 
     if (name) {
-      // 🔍 Search hotels by partial match in Hname (case-insensitive)
+      // 🔍 Search hotels by partial match in name (case-insensitive)
       hotels = await prisma.hotel.findMany({
         where: {
-          Hname: {
+          name: {
             contains: name,
             mode: "insensitive",
           },

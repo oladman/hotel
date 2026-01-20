@@ -25,7 +25,7 @@ export default function Carousel({ images }) {
         {images.map(img => (
           <img
             key={img.id}
-            src={`/images/${img.imageUrl}`}
+            src={`/images/${img.url}`}
             alt={img.caption}
             className={Styles["room-image"]}
           />

@@ -4,11 +4,11 @@ import Styles from "./CountryData.module.css";
 import HotelCard from "../HotelCard/HotelCard";
 
 export default function CountryHotels({ getCountryData }) {
-  const { countryName, hotels = [] } = getCountryData;
+  const { name, hotels = [] } = getCountryData;
 
   return (
     <div className={Styles["HomeStayCard-cover"]}>
-      <h1>Where to Stay in {countryName}</h1>
+      <h1>Where to Stay in {name}</h1>
 
       <div className={Styles["HomeStayCard"]}>
         <HotelCard hotels={hotels} />

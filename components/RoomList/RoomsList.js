@@ -68,7 +68,7 @@ function RoomCard({ room, Hname }) {
             {images.map((img) => (
               <Image
                 key={img.id}
-                src={`/images/${img.imageUrl}`}
+                src={`/images/${img.url}`}
                 alt={img.caption || room.name}
                 width={400}
                 height={250}

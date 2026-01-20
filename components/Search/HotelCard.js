@@ -11,7 +11,7 @@ const HotelCard = ({ hotel }) => {
         <div className={Styles["image-container"]}>
           <Image
             src={`/images/hotels/${hotel.image}` || "/default-hotel.jpg"}
-            alt={hotel.Hname}
+            alt={hotel.name}
             width={150}
             height={160}
           />
@@ -20,9 +20,9 @@ const HotelCard = ({ hotel }) => {
 
         <div className={Styles["hotel-info"]}>
           <div className={Styles["subtitle"]}>
-            <FaMapMarkerAlt /> {hotel.Haddress}
+            <FaMapMarkerAlt /> {hotel.address}
           </div>
-          <h3 className={Styles["title"]}>{hotel.Hname}</h3>
+          <h3 className={Styles["title"]}>{hotel.name}</h3>
 
           <div className={Styles["bottom"]}>
             <div className={Styles["rating"]}>

@@ -7,14 +7,14 @@ const prisma = new PrismaClient();
 export async function POST(request) {
   try {
     const data = await request.json();
-    const { countryName, countryAttach, countryDescription, code } = data;
+    const { name, image, description, code } = data;
 
     // Create new country
     const newCountry = await prisma.country.create({
       data: {
-        countryName,
-        countryAttach,
-        countryDescription,
+        name,
+        image,
+        description,
         code, // remember: code is required & unique in your model
       },
     });

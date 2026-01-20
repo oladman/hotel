@@ -3,10 +3,263 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql" 
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
+model Country {
+  id              String           @id @default(uuid())
+  name            String
+  image           String
+  description     String
+  code            String
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  aboutCountries  AboutCountry[]
+  hotels          Hotel[]
+  countryImages   CountryImage[]
+  popularPlaces   PopularPlace[]
+}
+
+model AboutCountry {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  countryId   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  country     Country? @relation(fields: [countryId], references: [id], onDelete: Cascade)
+}
+
+model PopularPlace {
+  id          Int                 @id @default(autoincrement())
+  name        String
+  description String
+  countryId   String?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  country     Country?            @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  images      PopularPlaceImage[]
+  hotels      Hotel[]             @relation("HotelToPopularPlace")
+}
+
+model PopularPlaceImage {
+  id             String       @id @default(uuid())
+  url            String
+  caption        String?
+  popularPlaceId Int
+  popularPlace   PopularPlace @relation(fields: [popularPlaceId], references: [id], onDelete: Cascade)
+}
+
+model CountryImage {
+  caption   String?
+  countryId String?
+  createdAt DateTime @default(now())
+  url       String
+  updatedAt DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  country   Country? @relation(fields: [countryId], references: [id], onDelete: Cascade)
+}
+
+model Hotel {
+  id            String         @id @default(uuid())
+  name          String
+  address       String
+  description   String
+  image         String?
+  rating        Float?         @default(0)
+  countryId     String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  startingPrice Decimal?       @db.Decimal(10, 2)
+  bookings      Booking[]
+  country       Country?       @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  hotelImages   HotelImage[]
+  reviews       Review[]
+  roomTypes     RoomType[]
+  amenities     Amenity[]      @relation("HotelAmenities")
+  popularPlaces PopularPlace[] @relation("HotelToPopularPlace")
+  promotions    Promotion[]    @relation("HotelToPromotion")
+
+  @@index([countryId])
+}
+
+model Amenity {
+  id     Int     @id @default(autoincrement())
+  name   String
+  slug   String
+  hotels Hotel[] @relation("HotelAmenities")
+}
+
+model HotelImage {
+  id        Int      @id @default(autoincrement())
+  url       String
+  caption   String?
+  hotelId   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  hotel     Hotel?   @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+}
+
+model RoomType {
+  id             String          @id @default(uuid())
+  name           String
+  description    String?
+  sizeSqFt       Int?
+  maxOccupancy   Int?
+  basePrice      Decimal         @db.Decimal(10, 2)
+  totalCount     Int
+  availableCount Int
+  hotelId        String
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  bookings       Booking[]
+  extras         Extra[]
+  rooms          Room[]
+  hotel          Hotel           @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+  roomTypeImages RoomTypeImage[]
+  taxes          Tax[]
+}
+
+model RoomTypeImage {
+  id         String   @id @default(uuid())
+  url        String
+  caption    String?
+  roomTypeId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  roomType   RoomType @relation(fields: [roomTypeId], references: [id], onDelete: Cascade)
+}
+
+model Room {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  roomNumber String
+  roomTypeId String
+  reviews    Review[]
+  roomType   RoomType @relation(fields: [roomTypeId], references: [id], onDelete: Cascade)
+}
+
+model Extra {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  price       Decimal   @db.Decimal(10, 2)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  roomTypeId  String?
+  roomType    RoomType? @relation(fields: [roomTypeId], references: [id], onDelete: Cascade)
+}
+
+model Tax {
+  id         Int       @id @default(autoincrement())
+  name       String
+  rate       Float
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  roomTypeId String?
+  roomType   RoomType? @relation(fields: [roomTypeId], references: [id], onDelete: Cascade)
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  comment   String
+  rating    Float
+  roomId    String?
+  hotelId   String?
+  userId    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  hotel     Hotel?   @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+  room      Room?    @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user      User?    @relation(fields: [userId], references: [id])
+}
+
+model Booking {
+  id           String        @id @default(uuid())
+  checkInDate  DateTime
+  checkOutDate DateTime
+  totalAmount  Decimal       @db.Decimal(10, 2)
+  status       BookingStatus @default(PENDING)
+  userId       String
+  hotelId      String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  guests       Int?
+  roomTypeId   String
+  hotel        Hotel         @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+  roomType     RoomType      @relation(fields: [roomTypeId], references: [id], onDelete: Cascade)
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payment      Payment?
+}
+
+model Payment {
+  id            String        @id @default(uuid())
+  amount        Decimal       @db.Decimal(10, 2)
+  method        PaymentMethod
+  status        PaymentStatus @default(PENDING)
+  transactionId String?       @unique
+  bookingId     String        @unique
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  booking       Booking       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id             String    @id @default(cuid())
+  name           String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  image          String?
+  role           UserRole  @default(USER)
+  createdAt      DateTime  @default(now())
+  hashedPassword String?
+  updatedAt      DateTime  @updatedAt
+  accounts       Account[]
+  bookings       Booking[]
+  reviews        Review[]
+  sessions       Session[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Promotion {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  type        PromoType
+  value       Float
+  validFrom   DateTime
+  validTo     DateTime
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  hotels      Hotel[]   @relation("HotelToPromotion")
+}
 
 enum BookingStatus {
   PENDING
@@ -35,279 +288,7 @@ enum PromoType {
 }
 
 enum UserRole {
-  USER
   ADMIN
+  USER
   HOTEL_OWNER
-}
-
-
-model Country {
-  id              String        @id @default(uuid())
-  countryName        String
-  countryAttach      String
-  countryDescription String           @db.Text
-  hotels             Hotel[]
-  code               String           
-  aboutCountries     AboutCountry[]
-  popularPlaces      PopularPlace[]
-  imageContents      ImageContent[]
-  createdAt          DateTime         @default(now())
-  updatedAt          DateTime         @updatedAt
-}
-
-model AboutCountry {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String   @db.Text
-  country     Country? @relation(fields: [countryId], references: [id], onDelete: Cascade)
-  
-  countryId   String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model PopularPlace {
-  id          Int                 @id @default(autoincrement())
-  placeName   String
-  description String              @db.Text
-  images      PopularPlaceImage[]
-  country     Country?            @relation(fields: [countryId], references: [id], onDelete: Cascade)
-  countryId   String?
-  hotels      Hotel[]             // Many-to-many
-  createdAt   DateTime            @default(now())
-  updatedAt   DateTime            @updatedAt
-}
-
-model PopularPlaceImage {
-  id              String        @id @default(uuid())
-  url             String
-  caption         String?
-  popularPlace    PopularPlace  @relation(fields: [popularPlaceId], references: [id], onDelete: Cascade)
-  popularPlaceId  Int
-}
-
-model ImageContent {
-  id        Int      @id @default(autoincrement())
-  imageUrl  String
-  caption   String?
-  country   Country? @relation(fields: [countryId], references: [id], onDelete: Cascade)
-  countryId String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-
-model Hotel {
-  id             String          @id @default(uuid())
-  Hname          String
-  Haddress       String
-  Hdescription   String
-  image          String?
-  rating         Float?          @default(0)
-  startingPrice  Decimal?        @db.Decimal(10, 2)
-  country        Country?        @relation(fields: [countryId], references: [id], onDelete: Cascade)
-  countryId      String?
-
-  roomTypes          RoomType[]
-  images         Image[]
-  reviews        Review[]
-  bookings       Booking[]
-  promotions     Promotion[]
-  popularPlaces  PopularPlace[]
-  amenities      Amenity[]       @relation("HotelAmenities")
-
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-
-  @@index([countryId])
-}
-
-model Amenity {
-  id       Int      @id @default(autoincrement())
-  name     String
-  slug     String
-  hotels   Hotel[]  @relation("HotelAmenities")
-}
-
-model Image {
-  id        Int      @id @default(autoincrement())
-  url       String
-  caption   String?
-  hotel     Hotel?   @relation(fields: [hotelId], references: [id], onDelete: Cascade)
-  hotelId   String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model RoomType {
-  id             String         @id @default(uuid())
-  name           String  
-  description    String? 
-  sizeSqFt       Int?
-  maxOccupancy   Int?
-  basePrice      Decimal        @db.Decimal(10, 2)
-  totalCount     Int
-  availableCount Int
-
-  hotel          Hotel          @relation(fields: [hotelId], references: [id], onDelete: Cascade)
-  hotelId        String
-
-  roomTypeImages RoomTypeImage[]
-  rooms          Room[]
-  extras         Extra[]
-  taxes          Tax[]
-
-
-  bookings       Booking[]     
-
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
-}
-
-model RoomTypeImage {
-  id        String   @id @default(uuid())
-  imageUrl  String
-  caption   String?
-  roomType      RoomType     @relation(fields: [roomTypeId], references: [id], onDelete: Cascade)
-  roomTypeId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-model Room {
-  id            String       @id @default(uuid())
-  roomNumber    String 
-  roomType      RoomType     @relation(fields: [roomTypeId], references: [id], onDelete: Cascade)
-  roomTypeId    String
-  reviews       Review[]
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-}
-
-
-
-
-model Extra {
-  id          Int       @id @default(autoincrement())
-  name        String
-  description String?
-  price       Decimal    @db.Decimal(10, 2)
-  roomType    RoomType?  @relation(fields: [roomTypeId], references: [id], onDelete: Cascade)
-  roomTypeId  String?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-}
-
-model Tax {
-  id          Int       @id @default(autoincrement())
-  name        String
-  rate        Float
-  roomType    RoomType? @relation(fields: [roomTypeId], references: [id], onDelete: Cascade)
-  roomTypeId  String?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-}
-
-
-model Review {
-  id        Int      @id @default(autoincrement())
-  comment   String
-  rating    Float
-  room      Room?    @relation(fields: [roomId], references: [id], onDelete: Cascade)
-  roomId    String?
-  hotel     Hotel?   @relation(fields: [hotelId], references: [id], onDelete: Cascade)
-  hotelId   String?
-  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
-  userId    String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-
-model Booking {
-  id           String         @id @default(uuid())
-  checkInDate  DateTime
-  checkOutDate DateTime
-  guests       Int?
-  totalAmount  Decimal         @db.Decimal(10, 2)
-  status       BookingStatus   @default(PENDING)
-  user         User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId       String
-  hotel        Hotel           @relation(fields: [hotelId], references: [id], onDelete: Cascade)
-  hotelId      String
-  roomType     RoomType        @relation(fields: [roomTypeId], references: [id], onDelete: Cascade)
-  roomTypeId   String
-  payment      Payment?
-  createdAt    DateTime        @default(now())
-  updatedAt    DateTime        @updatedAt
-}
-
-model Payment {
-  id            String         @id @default(uuid())
-  amount        Decimal         @db.Decimal(10, 2)
-  method        PaymentMethod
-  status        PaymentStatus   @default(PENDING)
-  transactionId String?         @unique
-  booking       Booking         @relation(fields: [bookingId], references: [id], onDelete: Cascade)
-  bookingId     String          @unique   
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-}
-
-
-model User {
-  id             String      @id @default(cuid())
-  name           String?
-  email          String?     @unique
-  emailVerified  DateTime?
-  image          String?
-  hashedPassword String?
-  role           UserRole    @default(USER)
-
-  reviews        Review[]
-  bookings       Booking[]
-  accounts       Account[]
-  sessions       Session[]
-
-  createdAt      DateTime    @default(now())
-  updatedAt      DateTime    @updatedAt
-}
-
-model Account {
-  id                String   @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?  @db.Text
-  access_token      String?  @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?  @db.Text
-  session_state     String?
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-
-model Promotion {
-  id          Int        @id @default(autoincrement())
-  name        String
-  description String?
-  type        PromoType
-  value       Float
-  validFrom   DateTime
-  validTo     DateTime
-  hotels      Hotel[]
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
 }

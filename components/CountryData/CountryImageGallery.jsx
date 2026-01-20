@@ -4,16 +4,16 @@ import Styles from "./CountryData.module.css";
 import { FaRegImages } from "react-icons/fa";
 
 export default function CountryImageGallery({ getCountryData }) {
-  const { countryName, countryAttach, imageContents = [] } = getCountryData;
-  const safeImages = imageContents || [];
+  const { name, image, countryImages = [] } = getCountryData;
+  const safeImages = countryImages || [];
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const galleryImages = [
-    { id: "main", imageUrl: countryAttach },
+    { id: "main", url: image },
     ...safeImages.map((img) => ({
       id: img.id,
-      imageUrl: img.imageUrl,
+      url: img.url,
     })),
   ];
 
@@ -30,8 +30,8 @@ export default function CountryImageGallery({ getCountryData }) {
       <div className={Styles["desktop-view"]}>
         <div className={Styles["first-image-countryData"]}>
           <img
-            src={`/images/countries/${countryAttach}`}
-            alt={`${countryName} main`}
+            src={`/images/countries/${image}`}
+            alt={`${name} main`}
           />
         </div>
 
@@ -40,8 +40,8 @@ export default function CountryImageGallery({ getCountryData }) {
             <div key={image.id} className={Styles["cover-image-countryData"]}>
               <img
                 className={Styles["image-countryData"]}
-                src={`/images/countries/${image.imageUrl}`}
-                alt={`${countryName} view`}
+                src={`/images/countries/${image.url}`}
+                alt={`${name} view`}
               />
 
               {index === 3 && safeImages.length > 4 && (
@@ -56,7 +56,7 @@ export default function CountryImageGallery({ getCountryData }) {
 
       <div className={Styles["mobile-carousel"]}>
         <img
-          src={`/images/countries/${galleryImages[currentIndex].imageUrl}`}
+          src={`/images/countries/${galleryImages[currentIndex].url}`}
           alt="mobile-carousel"
           className={Styles["carousel-image"]}
         />

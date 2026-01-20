@@ -13,11 +13,11 @@ export async function GET(req, { params }) {
     const hotel = await prisma.hotel.findUnique({
       where: { id },
       include: {
-        country: { select: { countryName: true } },
+        country: { select: { name: true } },
         roomTypes: {
           include: { roomTypeImages: true, rooms: true, extras: true, taxes: true },
         },
-        images: true,
+        hotelImages: true,
         reviews: true,
         amenities: true,
         bookings: true,

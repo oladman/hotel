@@ -4,11 +4,11 @@ import Styles from "./CountryData.module.css";
 import Button from "/components/Button";
 
 export default function PopularPlaces({ getCountryData }) {
-  const { popularPlaces = [], countryName } = getCountryData;
+  const { popularPlaces = [], name } = getCountryData;
 
   return (
     <div className={Styles["popular-places"]}>
-      <h2>{countryName} Top Tourist Attractions</h2>
+      <h2>{name} Top Tourist Attractions</h2>
 
       <div className={Styles["popular-card"]}>
         {popularPlaces.length > 0 ? (
@@ -21,19 +21,19 @@ export default function PopularPlaces({ getCountryData }) {
                     <img
                       key={i}
                       src={`/images/popularPlaces/${imgSrc.url}`}
-                      alt={imgSrc.caption || popular.placeName}
+                      alt={imgSrc.caption || popular.name}
                     />
                   ))
                 ) : (
                   <img
                     src="/images/default-placeholder.jpg"
-                    alt={popular.placeName}
+                    alt={popular.name}
                   />
                 )}
               </div>
 
               <div className={Styles["popular-body-text"]}>
-                <h4>{popular.placeName}</h4>
+                <h4>{popular.name}</h4>
                 <p className={Styles["popular-about"]}>
                   {popular.description}
                 </p>

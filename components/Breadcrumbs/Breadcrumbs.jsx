@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import Styles from "./Breadcrumbs.module.css";
 
-export default function Breadcrumbs({ countryName, hotelName }) {
+export default function Breadcrumbs({ name, hotelName }) {
   return (
     <div className={Styles["breadcrumbs"]}>
       <p>Home</p>
@@ -15,7 +15,7 @@ export default function Breadcrumbs({ countryName, hotelName }) {
         className={Styles["icon"]}
       />
 
-      <p>{countryName}</p>
+      <p>{name}</p>
 
       <FontAwesomeIcon
         icon={faAngleRight}

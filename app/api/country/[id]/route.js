@@ -16,7 +16,7 @@ export async function GET(req, { params }) {
           include: { amenities: true },
         },
         aboutCountries: true,
-        imageContents: true,
+        countryImages: true,
         popularPlaces: { include: { images: true } },
       },
     });

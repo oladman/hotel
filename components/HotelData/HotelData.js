@@ -59,13 +59,13 @@ export default function HotelData({ hotel, initialRooms = [], hotelName }) {
 
   const {
     country,
-    Hname,
-    Haddress,
-    Hdescription,
+    name,
+    address,
+    description,
     image,
     rating,
     startingPrice,
-    images = [],
+    hotelImages = [],
     amenities = [],
     roomTypes = [],
   } = hotel;
@@ -75,10 +75,10 @@ export default function HotelData({ hotel, initialRooms = [], hotelName }) {
       <header
         className={`${Styles["Country_Data_Header"]} ${Styles["container"]}`}
       >
-        <Breadcrumbs countryName={country?.countryName} hotelName={Hname} />
-        <HotelHeader Hname={Hname} Haddress={Haddress} rating={rating} />
+        <Breadcrumbs countryName={country?.name} hotelName={name} />
+        <HotelHeader Hname={name} Haddress={address} rating={rating} />
       </header>
-      <HotelImageGallery image={image} images={images} Hname={Hname} />
+      <HotelImageGallery image={image} hotelImages={hotelImages} Hname={name} />
       <section className={`${Styles["hotelDataCover"]} ${Styles["container"]}`}>
         <div className={Styles["fullHotelDetails"]}>
           <div className={Styles["hotelDetailsLeft"]}>
@@ -88,7 +88,7 @@ export default function HotelData({ hotel, initialRooms = [], hotelName }) {
               <h1 className={Styles["hotelDetailsLeftHeading"]}>
                 About the Hotel
               </h1>
-              <p className={Styles["hotelDescription"]}>{Hdescription}</p>
+              <p className={Styles["hotelDescription"]}>{description}</p>
             </div>
 
             <div className={Styles["hotelAmenities"]}>
@@ -142,7 +142,7 @@ export default function HotelData({ hotel, initialRooms = [], hotelName }) {
           <h1>Available Rooms</h1>
 
           {filteredRoomTypes.length > 0 ? (
-            <RoomCard roomTypes={filteredRoomTypes} Hname={Hname} />
+            <RoomCard roomTypes={filteredRoomTypes} Hname={name} />
           ) : (
             <p className={Styles["no-rooms-message"]}>{searchMessage}</p>
           )}

@@ -40,8 +40,9 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.2.0",
     "eslint": "^8",
     "eslint-config-next": "^15.0.0-rc.0",
-    "prisma": "^5.14.0"
+    "prisma": "^5.16.2"
   }
 }

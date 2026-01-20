@@ -17,7 +17,7 @@ export async function POST(req) {
     // 🔍 Find matching hotels
     const hotels = await prisma.hotel.findMany({
       where: {
-        Hname: { contains: destination, mode: "insensitive" },
+        name: { contains: destination, mode: "insensitive" },
       },
       select: { id: true },
     });

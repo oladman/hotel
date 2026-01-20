@@ -4,13 +4,13 @@ import { useState } from "react";
 import Styles from "./HotelData.module.css";
 import { FaRegImages } from "react-icons/fa";
 
-export default function HotelImageGallery({ image, images = [], Hname }) {
+export default function HotelImageGallery({ image, hotelImages = [], Hname }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
 
   const galleryImages = [
     { id: "main", imageUrl: image },
-    ...images.map((img) => ({
+    ...hotelImages.map((img) => ({
       id: img.id,
       imageUrl: img.url,
     })),
@@ -41,7 +41,7 @@ export default function HotelImageGallery({ image, images = [], Hname }) {
 
       
         <div className={Styles["cover-fetched-imageData"]}>
-          {images.slice(0, 4).map((hotelImage, index) => (
+          {hotelImages.slice(0, 4).map((hotelImage, index) => (
             <div
               key={hotelImage.id}
               className={Styles["cover-image-countryData"]}
@@ -53,9 +53,9 @@ export default function HotelImageGallery({ image, images = [], Hname }) {
               />
 
            
-              {index === 3 && images.length > 4 && (
+              {index === 3 && hotelImages.length > 4 && (
                 <div className={Styles.moreOverlay}>
-                  +{images.length - 4}
+                  +{hotelImages.length - 4}
                 </div>
               )}
             </div>

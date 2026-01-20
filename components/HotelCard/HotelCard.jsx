@@ -40,16 +40,16 @@ const HotelCard = ({ hotels, beds, baths, bedrooms }) => {
           >
             <HotelCardImage
               image={hotelItem.image}
-              alt={hotelItem.Hname}
+              alt={hotelItem.name}
               rating={hotelItem.rating}
             />
 
             <div className={Styles["card-body"]}>
-              <h3 className={Styles["card-title"]}>{hotelItem.Hname}</h3>
+              <h3 className={Styles["card-title"]}>{hotelItem.name}</h3>
 
               <div className={Styles["location"]}>
                 <FaMapMarkerAlt className={Styles["location-icon"]} />
-                <span>{hotelItem.Haddress}</span>
+                <span>{hotelItem.address}</span>
               </div>
 
               <div className={Styles["price-row"]}>
