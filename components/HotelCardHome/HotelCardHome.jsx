@@ -67,7 +67,6 @@ const HotelCardHome = ({ hotel }) => {
           ${parseFloat(startingPrice)?.toFixed(2) || "N/A"} <span>/ night</span>
         </div>
 
-        {/* FEATURES ROW */}
         <div className={styles.features}>
           {maxBeds > 0 && (
             <div>

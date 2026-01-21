@@ -7,11 +7,11 @@ import DateSelector from "./DateSelector";
 import { LuX } from "react-icons/lu";
 
 const HotelDataSideBar = ({ hotel, roomTypes = [], onResults }) => {
-  const [destination, setDestination] = useState(hotel?.Hname || "");
+  const [destination, setDestination] = useState(hotel?.name || "");
 
   useEffect(() => {
-    if (hotel?.Hname && hotel.Hname !== destination) {
-      setDestination(hotel.Hname);
+    if (hotel?.name && hotel.name !== destination) {
+      setDestination(hotel.name);
     }
   }, [hotel, destination]);
 

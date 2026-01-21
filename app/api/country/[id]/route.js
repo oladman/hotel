@@ -13,7 +13,16 @@ export async function GET(req, { params }) {
       where: { id },
       include: {
         hotels: {
-          include: { amenities: true },
+          include: {
+            amenities: true,
+            roomTypes: {
+              select: {
+                beds: true,
+                bathrooms: true,
+                maxOccupancy: true,
+              },
+            },
+          },
         },
         aboutCountries: true,
         countryImages: true,
@@ -25,7 +34,33 @@ export async function GET(req, { params }) {
       return NextResponse.json({ message: "Country not found" }, { status: 404 });
     }
 
-    return NextResponse.json(country);
+    const hotelsWithAggregatedRoomData = country.hotels.map((hotel) => {
+      const maxBeds =
+        hotel.roomTypes.length > 0
+          ? Math.max(...hotel.roomTypes.map((r) => r.beds || 0))
+          : 0;
+
+      const maxBathrooms =
+        hotel.roomTypes.length > 0
+          ? Math.max(...hotel.roomTypes.map((r) => r.bathrooms || 0))
+          : 0;
+
+      const maxGuests =
+        hotel.roomTypes.length > 0
+          ? Math.max(...hotel.roomTypes.map((r) => r.maxOccupancy || 0))
+          : 0;
+
+      const { roomTypes, ...hotelData } = hotel; // Exclude roomTypes from the final hotel object
+
+      return {
+        ...hotelData,
+        maxBeds,
+        maxBathrooms,
+        maxGuests,
+      };
+    });
+
+    return NextResponse.json({ ...country, hotels: hotelsWithAggregatedRoomData });
   } catch (error) {
     console.error("❌ Error Fetching Country:", error);
     return NextResponse.json(

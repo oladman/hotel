@@ -2,6 +2,9 @@
 import Image from "next/image";
 import {
   FaRegBookmark,
+  FaBed,
+  FaUserFriends,
+  FaBath,
 } from "react-icons/fa";
 import {
   LuBedDouble,
@@ -78,6 +81,11 @@ function RoomCard({ room, Hname }) {
   const router = useRouter();
   const images = room.roomTypeImages || [];
   const intervalRef = useRef(null);
+
+  const { beds, bathrooms, maxOccupancy } = room;
+  const maxBeds = beds;
+  const maxBathrooms = bathrooms;
+  const maxGuests = maxOccupancy;
 
 
   useEffect(() => {
@@ -217,9 +225,32 @@ function RoomCard({ room, Hname }) {
             <button className={Styles["choose-btn"]} onClick={handleReserve}>
               Choose Room
             </button>
+           
           </div>
+          
         </div>
+
+              
       </div>
+        <div className={Styles["features"]}>
+              {maxBeds > 0 && (
+                <div>
+                  <FaBed /> <span>{maxBeds} Beds</span>
+                </div>
+              )}
+
+              {maxGuests > 0 && (
+                <div>
+                  <FaUserFriends /> <span>{maxGuests} Guests</span>
+                </div>
+              )}
+
+              {maxBathrooms > 0 && (
+                <div>
+                  <FaBath /> <span>{maxBathrooms} Baths</span>
+                </div>
+              )}
+            </div>
     </div>
   );
 }
