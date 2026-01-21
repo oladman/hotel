@@ -8,17 +8,17 @@ datasource db {
 }
 
 model Country {
-  id              String           @id @default(uuid())
-  name            String
-  image           String
-  description     String
-  code            String
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  aboutCountries  AboutCountry[]
-  hotels          Hotel[]
-  countryImages   CountryImage[]
-  popularPlaces   PopularPlace[]
+  id             String         @id @default(uuid())
+  name           String
+  image          String
+  description    String
+  code           String
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  aboutCountries AboutCountry[]
+  countryImages  CountryImage[]
+  hotels         Hotel[]
+  popularPlaces  PopularPlace[]
 }
 
 model AboutCountry {
@@ -57,8 +57,8 @@ model CountryImage {
   createdAt DateTime @default(now())
   url       String
   updatedAt DateTime @updatedAt
-  id        Int      @id @default(autoincrement())
-  country   Country? @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  id        Int      @id(map: "ImageContent_pkey") @default(autoincrement())
+  country   Country? @relation(fields: [countryId], references: [id], onDelete: Cascade, map: "ImageContent_countryId_fkey")
 }
 
 model Hotel {
@@ -92,13 +92,13 @@ model Amenity {
 }
 
 model HotelImage {
-  id        Int      @id @default(autoincrement())
+  id        Int      @id(map: "Image_pkey") @default(autoincrement())
   url       String
   caption   String?
   hotelId   String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  hotel     Hotel?   @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+  hotel     Hotel?   @relation(fields: [hotelId], references: [id], onDelete: Cascade, map: "Image_hotelId_fkey")
 }
 
 model RoomType {
@@ -113,6 +113,8 @@ model RoomType {
   hotelId        String
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
+  bathrooms      Int
+  beds           Int
   bookings       Booking[]
   extras         Extra[]
   rooms          Room[]
