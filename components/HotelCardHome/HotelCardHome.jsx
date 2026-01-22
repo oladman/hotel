@@ -28,8 +28,7 @@ const HotelCardHome = ({ hotel }) => {
     : "/images/placeholder.jpg";
 
   return (
-    <Link href={`/hotel/${id}`} className={styles.card}>
-      {/* IMAGE SECTION */}
+    <Link href={`/hotel/${id}`} className={styles.card}>  
       <div className={styles.imageWrapper}>
         <Image
           src={imageUrl}
@@ -39,7 +38,7 @@ const HotelCardHome = ({ hotel }) => {
           unoptimized
         />
 
-        <span className={styles.badge}>Private Pool</span>
+       
         <button
           className={styles.favorite}
          
@@ -47,8 +46,6 @@ const HotelCardHome = ({ hotel }) => {
           <FaHeart />
         </button>
       </div>
-
-      {/* CONTENT */}
       <div className={styles.content}>
         <div className={styles.header}>
           <h3>{name}</h3>
