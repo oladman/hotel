@@ -2,14 +2,13 @@ import HomeCard from "../components/HomeCard/HomeCard";
 import Hero from "../components/Hero/Hero";
 import Button from "../components/Button";
 import { getCountry } from "../lib/api/getCountry";
+import { getRandomHotels } from "../lib/api/getRandomHotels";
 import HotelCardHome from "../components/HotelCardHome/HotelCardHome";
 
 
 async function page() {
   const countryList = await getCountry();
-            const hotelsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hotel/random`, {    next: { revalidate: 3600 },
-  });
-  const randomHotels = await hotelsRes.json();
+  const randomHotels = await getRandomHotels();
 
   return (
     <>
